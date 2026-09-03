@@ -297,3 +297,90 @@ print(texto)
 
 // ¿Cuántas iteraciones?
 // El bucle for _ in 1...3 tiene 3 iteraciones
+
+// ===== EJERCICIO 4: WHILE =====
+
+// --- Ejemplo (ya resuelto): ---
+var contador = 5
+while contador > 0 {
+    print("Cuenta regresiva: \(contador)")
+    contador -= 1 // Resta 1 en cada vuelta
+}
+print("¡Despegue!")
+
+// --- TODO 11: Ahorro mensual ---
+// Un alumno ahorra S/. 150 cada mes.
+// ¿Cuántos meses necesita para juntar S/. 2000?
+var ahorro = 0.0
+var meses = 0
+let meta = 2000.0
+let ahorroMensual = 150.0
+
+while ahorro < meta {
+    ahorro += ahorroMensual
+    meses += 1
+}
+print("Necesita \(meses) meses para juntar S/. \(meta)")
+
+// --- TODO 12: División sucesiva ---
+// Divide un número entre 2 repetidamente hasta que sea menor a 1
+var numeroDiv = 1000.0
+var divisionesCount = 0
+
+while numeroDiv >= 1 {
+    numeroDiv = numeroDiv / 2
+    divisionesCount += 1
+    print("División \(divisionesCount): \(numeroDiv)")
+}
+print("Se dividió \(divisionesCount) veces")
+
+
+// ===== EJERCICIO 4.2 — REPEAT-WHILE =====
+
+// --- TODO 13: Validar datos con repeat-while ---
+// Simula pedir una nota hasta que sea válida (entre 0 y 20)
+// Usamos valores fijos porque no podemos pedir input en Playground
+let intento1 = 25 // Inválido: > 20
+let intento2 = -3 // Inválido: < 0
+let intento3 = 15 // Válido
+
+var intentoActual = intento1
+var esValido = false
+var numIntento = 1
+
+repeat {
+    // Verifica si intentoActual está entre 0 y 20
+    if intentoActual >= 0 && intentoActual <= 20 {
+        esValido = true
+        print("Nota \(intentoActual) válida en intento \(numIntento)")
+    } else {
+        print("Nota \(intentoActual) inválida, intento \(numIntento)")
+        // Simula el siguiente intento:
+        if numIntento == 1 { intentoActual = intento2 }
+        if numIntento == 2 { intentoActual = intento3 }
+        numIntento += 1
+    }
+} while !esValido
+
+
+// ===== EJERCICIO 4.3 — PREDICCIONES =====
+
+// PREDICT: ¿Cuántas veces se ejecuta cada bucle?
+var a = 100
+while a > 1 {
+    a = a / 3
+}
+print(a) // PREDICT 8: Valor final: 1 — Vueltas: 4 (100→33→11→3→1)
+
+var b = 0
+repeat {
+    b += 1
+} while b < 0
+print(b) // PREDICT 9: Valor: 1
+
+// ¿Por qué repeat-while ejecuta al menos una vez?
+// Porque repeat-while evalúa la condición AL FINAL del bloque,
+// después de ejecutarlo una primera vez. Con while, la condición
+// se evalúa ANTES: como b < 0 es falso desde el inicio (b = 0),
+// el bloque nunca se ejecutaría con while, pero con repeat-while
+// sí se ejecuta al menos una vez antes de comprobar la condición.
