@@ -1,7 +1,5 @@
 import Foundation
 
-// MARK: - CONFIGURACIÓN DE USUARIOS
-
 struct ConfigUsuario {
     let multaBase: Double
     let diasMaximos: Int
@@ -14,15 +12,11 @@ let configs: [String: ConfigUsuario] = [
     "coordinador": ConfigUsuario(multaBase: 4.0, diasMaximos: 15)
 ]
 
-// MARK: - FORMATO DE FECHAS
-
 let formatter = DateFormatter()
 formatter.dateFormat = "dd/MM/yyyy"
 formatter.locale = Locale(identifier: "es_PE")
 
 let calendar = Calendar.current
-
-// MARK: - FUNCIÓN PARA CALCULAR MULTA
 
 func multaDelDia(_ dia: Int, base: Double) -> Double {
     switch dia {
@@ -33,22 +27,17 @@ func multaDelDia(_ dia: Int, base: Double) -> Double {
     case 7...10:
         return base * 0.50
     case 11...20:
-        return base * 1.00
+        return base
     default:
-        return base * 1.00
+        return base
     }
 }
 
-// MARK: - REGISTRAR PRÉSTAMO
-
 func registrarPrestamo() {
-
     print("")
     print(String(repeating: "=", count: 50))
     print("           REGISTRAR PRÉSTAMO")
     print(String(repeating: "=", count: 50))
-
-    // ENTRADA DE DATOS
 
     print("Título del libro:")
     let libro = readLine() ?? ""
@@ -59,37 +48,42 @@ func registrarPrestamo() {
     print("Tipo de usuario (alumno/docente/administrador/coordinador):")
     let tipoUsuario = (readLine() ?? "").lowercased()
 
-    // VALIDAR TIPO DE USUARIO
-
     guard let config = configs[tipoUsuario] else {
         print("")
-        print("❌ Tipo de usuario inválido.")
-        print("Tipos permitidos:")
-        print("- alumno")
-        print("- docente")
-        print("- administrador")
-        print("- coordinador")
+        print("Tipo de usuario inválido.")
+        print("Tipos permitidos: alumno, docente, administrador, coordinador")
         return
     }
 
-    print("Fecha límite (promesa de devolución) (dd/MM/yyyy):")
+    print("Fecha de préstamo (dd/MM/yyyy):")
+    let fechaPrestamoStr = readLine() ?? ""
+
+    print("Fecha límite de devolución (dd/MM/yyyy):")
     let fechaLimiteStr = readLine() ?? ""
 
     print("Fecha de devolución real (dd/MM/yyyy):")
     let fechaDevolucionStr = readLine() ?? ""
 
-    // VALIDAR FECHAS
-
-    guard let fechaLimite = formatter.date(from: fechaLimiteStr),
+    guard let fechaPrestamo = formatter.date(from: fechaPrestamoStr),
+          let fechaLimite = formatter.date(from: fechaLimiteStr),
           let fechaDevolucion = formatter.date(from: fechaDevolucionStr) else {
-
         print("")
-        print("❌ Fechas inválidas.")
+        print("Fechas inválidas.")
         print("Usa el formato dd/MM/yyyy")
         return
     }
 
-    // CALCULAR DÍAS DE ATRASO
+    if fechaLimite < fechaPrestamo {
+        print("")
+        print("La fecha límite no puede ser anterior a la fecha de préstamo.")
+        return
+    }
+
+    if fechaDevolucion < fechaPrestamo {
+        print("")
+        print("La fecha de devolución no puede ser anterior a la fecha de préstamo.")
+        return
+    }
 
     let componentes = calendar.dateComponents(
         [.day],
@@ -99,15 +93,11 @@ func registrarPrestamo() {
 
     let diasAtraso = max(0, componentes.day ?? 0)
 
-    // CALCULAR MULTA TOTAL
-
     var multaTotal: Double = 0
     var diasConMulta = 0
 
     if diasAtraso > 0 {
-
         for dia in 1...diasAtraso {
-
             let multaDia = multaDelDia(
                 dia,
                 base: config.multaBase
@@ -120,8 +110,6 @@ func registrarPrestamo() {
             }
         }
     }
-
-    // DETERMINAR ESTADO
 
     let estado: String
 
@@ -139,12 +127,7 @@ func registrarPrestamo() {
         estado = "Retraso crítico"
     }
 
-    // VERIFICAR MÁXIMO PERMITIDO
-
     let excedeMaximo = diasAtraso > config.diasMaximos
-
-    // VERIFICAR SUSPENSIÓN
-
     let suspendido = diasAtraso > 20
 
     let situacion: String
@@ -157,16 +140,15 @@ func registrarPrestamo() {
         situacion = "Habilitado"
     }
 
-    // MARK: - REPORTE
-
     print("")
-    print(String(repeating: "=", count: 50))
-    print("             REPORTE DE PRÉSTAMO")
-    print(String(repeating: "=", count: 50))
+    print(String(repeating: "=", count: 55))
+    print("              REPORTE DE PRÉSTAMO")
+    print(String(repeating: "=", count: 55))
 
     print("Libro: \(libro)")
     print("Usuario: \(usuario)")
-    print("Tipo: \(tipoUsuario)")
+    print("Tipo de usuario: \(tipoUsuario)")
+    print("Fecha de préstamo: \(fechaPrestamoStr)")
     print("Fecha límite: \(fechaLimiteStr)")
     print("Fecha de devolución: \(fechaDevolucionStr)")
     print("Días de atraso: \(diasAtraso)")
@@ -175,10 +157,7 @@ func registrarPrestamo() {
     print("Máximo permitido: \(config.diasMaximos) días")
     print("Multa base: S/ \(String(format: "%.2f", config.multaBase))")
 
-    // MARK: - DETALLE DE MULTAS
-
     if diasAtraso > 0 {
-
         print("")
         print(String(repeating: "-", count: 60))
         print("                 DETALLE DE MULTAS")
@@ -189,7 +168,6 @@ func registrarPrestamo() {
         var acumulado: Double = 0
 
         for dia in 1...diasAtraso {
-
             let fechaDia = calendar.date(
                 byAdding: .day,
                 value: dia,
@@ -215,35 +193,26 @@ func registrarPrestamo() {
         print("Días con multa: \(diasConMulta)")
     }
 
-    // MARK: - ADVERTENCIA
-
     if excedeMaximo && !suspendido {
-
         print("")
-        print("⚠️ ADVERTENCIA:")
+        print("ADVERTENCIA:")
         print("El usuario ha superado el máximo permitido")
         print("para su tipo de usuario: \(config.diasMaximos) días.")
     }
 
-    // MARK: - SUSPENSIÓN
-
     if suspendido {
-
         print("")
-        print(String(repeating: "!", count: 50))
+        print(String(repeating: "!", count: 55))
         print("              USUARIO SUSPENDIDO")
         print("El atraso supera los 20 días.")
-        print(String(repeating: "!", count: 50))
+        print(String(repeating: "!", count: 55))
     }
 
     print("")
-    print(String(repeating: "=", count: 50))
+    print(String(repeating: "=", count: 55))
 }
 
-// MARK: - MOSTRAR TIPOS DE USUARIO
-
 func mostrarTiposUsuario() {
-
     print("")
     print(String(repeating: "=", count: 50))
     print("             TIPOS DE USUARIO")
@@ -271,12 +240,9 @@ func mostrarTiposUsuario() {
     print(String(repeating: "=", count: 50))
 }
 
-// MARK: - MENÚ PRINCIPAL
-
 var continuar = true
 
 while continuar {
-
     print("")
     print(String(repeating: "=", count: 50))
     print("       SISTEMA DE PRÉSTAMO DE LIBROS")
@@ -292,7 +258,6 @@ while continuar {
     let opcion = readLine() ?? ""
 
     switch opcion {
-
     case "1":
         registrarPrestamo()
 
@@ -307,7 +272,7 @@ while continuar {
 
     default:
         print("")
-        print("❌ Opción inválida.")
+        print("Opción inválida.")
         print("Seleccione una opción del 1 al 3.")
     }
 }
