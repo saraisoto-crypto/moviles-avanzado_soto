@@ -540,4 +540,52 @@ if datosValidos {
     print("No se puede procesar el carrito: revisa los datos ingresados")
 }
 
+// ===== EJERCICIO 7: JUEGO DE ADIVINANZA (CON IA) =====
 
+let numeroSecreto = 42 // Número que el jugador debe adivinar
+
+// Simulación de 5 intentos del jugador (no hay input real en Playground)
+let intentoJ1 = 20 // Primer intento del jugador
+let intentoJ2 = 50 // Segundo intento del jugador
+let intentoJ3 = 35 // Tercer intento del jugador
+let intentoJ4 = 45 // Cuarto intento del jugador
+let intentoJ5 = 42 // Quinto intento del jugador (coincide con el secreto)
+
+var intentoActualJuego = 0 // Contador de intentos realizados
+var adivinado = false // Bandera que indica si ya se adivinó el número
+var numJuego = 1 // Indica en qué número de intento va el jugador (1 al 5)
+var valorActual = intentoJ1 // Guarda el valor del intento que se está evaluando
+
+// Recorre los intentos mientras no se haya adivinado y no se pasen de 5 intentos
+while !adivinado && numJuego <= 5 {
+    intentoActualJuego += 1 // Incrementa el contador de intentos realizados
+
+    if valorActual == numeroSecreto {
+        // Si el número coincide con el secreto, el jugador ganó
+        print("Intento \(intentoActualJuego): \(valorActual) → ¡Correcto!")
+        adivinado = true // Marca el juego como ganado para detener el bucle
+    } else if valorActual > numeroSecreto {
+        // Si el intento es mayor al secreto, se informa "Muy alto"
+        print("Intento \(intentoActualJuego): \(valorActual) → Muy alto")
+    } else {
+        // Si el intento es menor al secreto, se informa "Muy bajo"
+        print("Intento \(intentoActualJuego): \(valorActual) → Muy bajo")
+    }
+
+    // Avanza al siguiente intento simulado, según el número de intento actual
+    if numJuego == 1 { valorActual = intentoJ2 }
+    if numJuego == 2 { valorActual = intentoJ3 }
+    if numJuego == 3 { valorActual = intentoJ4 }
+    if numJuego == 4 { valorActual = intentoJ5 }
+
+    numJuego += 1 // Pasa al siguiente número de intento
+}
+
+// Después del bucle, informa el resultado final
+if adivinado {
+    // Si se adivinó, muestra en cuántos intentos lo logró
+    print("¡Ganaste en \(intentoActualJuego) intento(s)!")
+} else {
+    // Si se agotaron los 5 intentos sin adivinar, muestra el número secreto
+    print("Perdiste. El número era: \(numeroSecreto)")
+}
