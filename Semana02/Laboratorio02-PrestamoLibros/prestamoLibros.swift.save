@@ -1,0 +1,163 @@
+
+// ENTRADA DE DATOS
+
+print("Título del libro:")
+let libro = readLine() ?? ""
+
+print("Usuario:")
+let usuario = readLine() ?? ""
+
+print("Tipo de usuario (alumno/docente/admin/coordinador):")
+let tipoUsuario = (readLine() ?? "").lowercased()
+
+print("Fecha límite (promesa de devolución) (dd/MM/yyyy):")
+let fechaLimiteStr = readLine() ?? ""
+
+print("Fecha de devolución real (dd/MM/yyyy):")
+let fechaDevolucionStr = readLine() ?? ""
+
+// LÓGICA DE NEGOCIO
+
+let formatter = DateFormatter()
+formatter.dateFormat = "dd/MM/yyyy"
+
+// Configuración de tipos de usuario
+struct ConfigUsuario {
+    let multaBase: Double
+    let diasMaximos: Int
+}
+
+let configs: [String: ConfigUsuario] = [
+    "alumno": ConfigUsuario(multaBase: 1.5, diasMaximos: 7),
+    "docente": ConfigUsuario(multaBase: 2.0, diasMaximos: 15),
+    "admin": ConfigUsuario(multaBase: 3.0, diasMaximos: 10),
+    "coordinador": ConfigUsuario(multaBase: 4.0, diasMaximos: 15)
+]
+
+guard let config = configs[tipoUsuario] else {
+    print("Tipo de usuario inválido. Usando configuración por defecto (alumno)")
+    let configDefault = configs["alumno"]!
+    // Si quieres forzar a que ingrese un tipo válido, descomenta esto:
+    // print("Tipos válidos: alumno, docente, admin, coordinador")
+    // exit(1)
+}
+
+guard let fechaLimite = formatter.date(from: fechaLimiteStr),
+      let fechaDevolucion = formatter.date(from: fechaDevolucionStr) else {
+    print("Fechas inválidas. Formato esperado: dd/MM/yyyy")
+    exit(1)
+}
+
+let calendar = Calendar.current
+let componentes = calendar.dateComponents([.day], from: fechaLimite, to: fechaDevolucion)
+let diasAtraso = max(0, componentes.day ?? 0)
+
+// Validación: No permitir que el alumno pase de 7 días (máximo permitido por el sistema)
+if tipoUsuario == "alumno" && diasAtraso > config.diasMaximos {
+    print("⚠️ ALERTA: El alumno ha excedido los \(config.diasMaximos) días máximos permitidos (\(diasAtraso) días).")
+    print("El sistema NO permite que un alumno pase de \(config.diasMaximos) días de atraso.")
+    print("Por favor, corrija la fecha de devolución.")
+    exit(1)
+}
+
+// Nueva función de cálculo de multa según los nuevos rangos
+func multaDelDia(_ dia: Int, base: Double) -> Double {
+    switch dia {
+    case 1...3:
+        return 0.0 // 1-3 días: no paga
+    case 4...6:
+        return base * 0.25 // 4-6 días: 25%
+    case 7...10:
+        return base * 0.50 // 7-10 días: 50%
+    case 11...20:
+        return base * 1.00 // 11-20 días: 100%
+    default:
+        return base * 1.00 // Más de 20: 100% (pero ya estaría suspendido)
+    }
+}
+
+var multaTotal: Double = 0
+var diasConMulta = 0
+
+if diasAtraso > 0 {
+    for dia in 1...diasAtraso {
+        let multaDia = multaDelDia(dia, base: config.multaBase)
+        multaTotal += multaDia
+        if multaDia > 0 {
+            diasConMulta += 1
+        }
+    }
+}
+
+// Nuevas reglas de estado
+let estado: String
+if diasAtraso == 0 {
+    estado = "A tiempo"
+} else if diasAtraso <= 3 {
+    estado = "A tiempo (sin multa)"
+} else if diasAtraso <= 6 {
+    estado = "Retraso leve"
+} else if diasAtraso <= 10 {
+    estado = "Retraso moderado"
+} else if diasAtraso <= 20 {
+    estado = "Retraso grave"
+} else {
+    estado = "Retraso crítico"
+}
+
+// Nueva regla de suspensión: más de 20 días
+let situacion = diasAtraso > 20 ? "SUSPENDIDO" : "Habilitado"
+
+// Verificar si excede el máximo permitido por tipo de usuario
+let excedeMaximo = diasAtraso > config.diasMaximos
+let mensajeExceso = excedeMaximo ? "⚠️ EXCEDE EL MÁXIMO PERMITIDO (\(config.diasMaximos) días)" : "Dentro del límite"
+
+// SALIDA DE RESULTADOS
+print("\n" + String(repeating: "=", count: 40))
+print("       REPORTE DE PRÉSTAMO")
+print(String(repeating: "=", count: 40))
+
+print("📚 Libro: \(libro)")
+print("👤 Usuario: \(usuario) (\(tipoUsuario))")
+print("📅 Fecha límite (promesa): \(fechaLimiteStr)")
+print("📅 Fecha de devolución: \(fechaDevolucionStr)")
+print("⏱️ Días de atraso: \(diasAtraso)")
+print("📊 Estado: \(estado)")
+print("✅ Situación del usuario: \(situacion)")
+print("📌 Límite del usuario: \(config.diasMaximos) días - \(mensajeExceso)")
+
+// Mostrar tabla de días con multa
+if diasAtraso > 0 {
+    print("\n" + String(repeating: "-", count: 50))
+    print("DETALLE DE MULTAS POR DÍA")
+    print(String(repeating: "-", count: 50))
+    print("Día\tFecha\t\tMulta\tAcumulado")
+    print(String(repeating: "-", count: 50))
+    
+    var acumulado: Double = 0
+    for dia in 1...diasAtraso {
+        let fechaDia = calendar.date(byAdding: .day, value: dia, to: fechaLimite)!
+        let multaDia = multaDelDia(dia, base: config.multaBase)
+        acumulado += multaDia
+        
+        let emojiMulta = multaDia == 0 ? "🟢" : (multaDia <= config.multaBase * 0.3 ? "🟡" : "🔴")
+        print("\(dia)\t\(formatter.string(from: fechaDia))\t\(emojiMulta) S/\(String(format: "%.2f", multaDia))\tS/\(String(format: "%.2f", acumulado))")
+    }
+    print(String(repeating: "-", count: 50))
+    print("💰 Multa total: S/ \(String(format: "%.2f", multaTotal))")
+    print("📊 Días con multa aplicada: \(diasConMulta) de \(diasAtraso)")
+    
+    if excedeMaximo {
+        print("\n⚠️ ADVERTENCIA: El usuario ha superado el límite de \(config.diasMaximos) días.")
+        print("   Considere aplicar medidas adicionales según políticas de la biblioteca.")
+    }
+}
+
+if diasAtraso > 20 {
+    print("\n" + "🚨 " + String(repeating: "!", count: 30))
+    print("   USUARIO SUSPENDIDO")
+    print("   Ha superado los 20 días de atraso")
+    print(String(repeating: "!", count: 30) + " 🚨")
+}
+
+print("\n" + String(repeating: "=", count: 40))
