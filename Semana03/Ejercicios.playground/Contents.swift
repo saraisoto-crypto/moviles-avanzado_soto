@@ -56,9 +56,9 @@ print(numeros[4]) // FIX 3
 var lista = [1, 2, 3, 4, 5]
 lista.remove(at: 0)
 lista.append(6)
-print(lista) // PREDICT 1: ___
-print(lista.count) // PREDICT 2: ___
+print(lista) // PREDICT 1: [2, 3, 4, 5, 6]
+print(lista.count) // PREDICT 2: 5
 
 var nombres = ["Ana", "Carlos", "Beto"]
-print(nombres.sorted()) // PREDICT 3: ___
-print(nombres) // PREDICT 4: ___
+print(nombres.sorted()) // PREDICT 3: ["Ana", "Beto", "Carlos"]
+print(nombres) // PREDICT 4: ["Ana", "Carlos", "Be"]
