@@ -97,3 +97,94 @@ if promedios.count > 0 {
         print("\(item.nombre): \(String(format: "%.2f", item.promedio))")
     }
 }
+
+// ===== Ejercicio 7: Inventario con menú =====
+
+// Diccionarios que guardan el precio y el stock de cada producto usando el nombre como clave
+var preciosInv: [String: Double] = [:]
+var stocksInv: [String: Int] = [:]
+
+// Pedimos cuántos productos se van a registrar antes de mostrar el menú
+print("¿Cuántos productos va a registrar?")
+// Convertimos la entrada a Int, usando 0 si falla la conversión
+let cantidadInv = Int(readLine() ?? "") ?? 0
+
+// Solo registramos productos si se ingresó un número válido
+if cantidadInv > 0 {
+    for i in 1...cantidadInv {
+        // Pedimos el nombre del producto
+        print("Producto \(i) - Nombre:")
+        let nombre = readLine() ?? ""
+        // Pedimos el precio del producto
+        print("Precio:")
+        let precio = Double(readLine() ?? "") ?? 0
+        // Pedimos el stock del producto
+        print("Stock:")
+        let stock = Int(readLine() ?? "") ?? 0
+        // Guardamos el precio en el diccionario de precios
+        preciosInv[nombre] = precio
+        // Guardamos el stock en el diccionario de stocks
+        stocksInv[nombre] = stock
+    }
+}
+
+// Variable de control que mantiene el menú activo mientras sea true
+var continuar = true
+
+// Bucle while que se repite hasta que el usuario elija salir
+while continuar {
+    // Mostramos las opciones del menú
+    print("\n===== MENÚ INVENTARIO =====")
+    print("1) Ver inventario")
+    print("2) Buscar producto")
+    print("3) Stock bajo")
+    print("4) Valor total")
+    print("5) Salir")
+    print("Elige una opción:")
+    // Leemos la opción elegida por el usuario
+    let opcion = readLine() ?? ""
+
+    // Si no hay más entrada disponible, salimos para evitar bucle infinito
+    if opcion == "" {
+        continuar = false
+        break
+    }
+
+    // Evaluamos qué opción escogió con un switch
+    switch opcion {
+    case "1":
+        print("\n----- INVENTARIO COMPLETO -----")
+        for (nombre, precio) in preciosInv {
+            let stock = stocksInv[nombre] ?? 0
+            print("\(nombre): S/. \(precio) — Stock: \(stock)")
+        }
+    case "2":
+        print("Nombre del producto a buscar:")
+        let buscado = readLine() ?? ""
+        if let precio = preciosInv[buscado] {
+            let stock = stocksInv[buscado] ?? 0
+            print("\(buscado): S/. \(precio) — Stock: \(stock)")
+        } else {
+            print("Producto no encontrado")
+        }
+    case "3":
+        print("\n----- STOCK BAJO -----")
+        for (nombre, stock) in stocksInv {
+            if stock < 5 {
+                print("\(nombre): quedan \(stock) unidades")
+            }
+        }
+    case "4":
+        var valorTotal = 0.0
+        for (nombre, precio) in preciosInv {
+            let stock = stocksInv[nombre] ?? 0
+            valorTotal += precio * Double(stock)
+        }
+        print("Valor total del inventario: S/. \(valorTotal)")
+    case "5":
+        print("Saliendo del sistema... ¡Hasta pronto!")
+        continuar = false
+    default:
+        print("Opción inválida, intenta de nuevo")
+    }
+}
