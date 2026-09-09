@@ -185,3 +185,50 @@ func mostrarTransferencias() {
 // Prueba temporal
 mostrarTransferencias()
 
+// ---------------------------------------------------------------------
+// RF6 - Calcular ruta entre dos estaciones de la misma línea
+// ---------------------------------------------------------------------
+
+func calcularRuta() {
+    print("\nEscribe la estación de ORIGEN:")
+    guard let origenTxt = readLine(), !origenTxt.isEmpty else { return }
+    print("Escribe la estación de DESTINO:")
+    guard let destinoTxt = readLine(), !destinoTxt.isEmpty else { return }
+
+    guard let origen = estaciones.first(where: { normalizar($0.nombre) == normalizar(origenTxt) }) else {
+        print("No se encontró la estación de origen '\(origenTxt)'.")
+        return
+    }
+    guard let destino = estaciones.first(where: { normalizar($0.nombre) == normalizar(destinoTxt) }) else {
+        print("No se encontró la estación de destino '\(destinoTxt)'.")
+        return
+    }
+
+    let lineaComun = origen.lineas.first { destino.lineas.contains($0) }
+
+    guard let linea = lineaComun else {
+        print("\n'\(origen.nombre)' y '\(destino.nombre)' no comparten una línea directa.")
+        print("Deberás hacer transferencia en: San Borja Sur o La Cultura.")
+        return
+    }
+
+    let lista = estacionesDeLinea(linea)
+    guard let i1 = lista.firstIndex(where: { $0.nombre == origen.nombre }),
+          let i2 = lista.firstIndex(where: { $0.nombre == destino.nombre }) else {
+        print("No se pudo calcular la ruta.")
+        return
+    }
+
+    let paradas = abs(i2 - i1)
+    let rango = i1 < i2 ? Array(lista[i1...i2]) : Array(lista[i2...i1].reversed())
+
+    print("\nRuta en \(nombreLinea(linea)): \(origen.nombre) → \(destino.nombre)")
+    print("Número de paradas (sin contar el origen): \(paradas)")
+    print("Recorrido:")
+    for (i, e) in rango.enumerated() {
+        print("  \(i + 1). \(e.nombre)")
+    }
+}
+
+// Prueba temporal
+calcularRuta()
