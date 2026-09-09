@@ -166,3 +166,22 @@ func queLineaTomar() {
 // Prueba temporal
 lineasPorLugar()
 queLineaTomar()
+
+// ---------------------------------------------------------------------
+// RF5 - Estaciones de transferencia (L1 <-> L2)
+// ---------------------------------------------------------------------
+
+func mostrarTransferencias() {
+    let transferencias = estaciones.filter { $0.lineas.count > 1 }
+    if transferencias.isEmpty {
+        print("No hay estaciones de transferencia registradas.")
+        return
+    }
+    print("\n--- Estaciones de transferencia (cambio de línea) ---")
+    for e in transferencias {
+        print("• \(e.nombre) — \(e.distrito) — conecta Línea 1 y Línea 2")
+    }
+}
+// Prueba temporal
+mostrarTransferencias()
+
