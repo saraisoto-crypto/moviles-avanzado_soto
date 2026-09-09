@@ -163,10 +163,6 @@ func queLineaTomar() {
     }
 }
 
-// Prueba temporal
-lineasPorLugar()
-queLineaTomar()
-
 // ---------------------------------------------------------------------
 // RF5 - Estaciones de transferencia (L1 <-> L2)
 // ---------------------------------------------------------------------
@@ -182,8 +178,6 @@ func mostrarTransferencias() {
         print("• \(e.nombre) — \(e.distrito) — conecta Línea 1 y Línea 2")
     }
 }
-// Prueba temporal
-mostrarTransferencias()
 
 // ---------------------------------------------------------------------
 // RF6 - Calcular ruta entre dos estaciones de la misma línea
@@ -230,5 +224,47 @@ func calcularRuta() {
     }
 }
 
-// Prueba temporal
-calcularRuta()
+// ---------------------------------------------------------------------
+// MENÚ PRINCIPAL
+// ---------------------------------------------------------------------
+
+func mostrarMenu() {
+    print("""
+
+    =====================================================
+       METRO DE LIMA - Consulta de Estaciones
+    =====================================================
+    1. Listar estaciones
+    2. Buscar estación por nombre
+    3. Ver qué línea(s) cubren un distrito/lugar
+    4. ¿En qué línea me encuentro? (según mi ubicación)
+    5. Ver estaciones de transferencia
+    6. Calcular ruta entre dos estaciones
+    0. Salir
+    =====================================================
+    Elige una opción:
+    """)
+}
+
+func iniciarApp() {
+    var continuar = true
+    while continuar {
+        mostrarMenu()
+        guard let opcion = readLine() else { continue }
+        switch opcion {
+        case "1": listarEstaciones()
+        case "2": buscarPorNombre()
+        case "3": lineasPorLugar()
+        case "4": queLineaTomar()
+        case "5": mostrarTransferencias()
+        case "6": calcularRuta()
+        case "0":
+            print("\n¡Gracias por usar la app del Metro de Lima!")
+            continuar = false
+        default:
+            print("Opción no válida, intenta de nuevo.")
+        }
+    }
+}
+
+iniciarApp()
