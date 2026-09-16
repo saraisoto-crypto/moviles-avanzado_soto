@@ -58,7 +58,20 @@ let estaciones: [Estacion] = [
     Estacion(nombre: "Miraflores - Av. Arequipa", distrito: "Miraflores", lineas: [3]),
     Estacion(nombre: "Av. Benavides", distrito: "Surquillo", lineas: [3]),
     Estacion(nombre: "Pedro Miotta", distrito: "Santiago de Surco", lineas: [3]),
-    Estacion(nombre: "San Juan de Miraflores - Terminal L3", distrito: "San Juan de Miraflores", lineas: [3])
+    Estacion(nombre: "San Juan de Miraflores - Terminal L3", distrito: "San Juan de Miraflores", lineas: [3]),
+
+    // ---------- LÍNEA 4 (Callao -> La Molina/Ate) ----------
+    Estacion(nombre: "Gambetta", distrito: "Callao", lineas: [4]),
+    Estacion(nombre: "Carmen de la Legua", distrito: "Carmen de la Legua Reynoso", lineas: [4]),
+    Estacion(nombre: "Bellavista", distrito: "Bellavista", lineas: [4]),
+    Estacion(nombre: "San Miguel", distrito: "San Miguel", lineas: [4]),
+    Estacion(nombre: "Magdalena del Mar", distrito: "Magdalena del Mar", lineas: [4]),
+    Estacion(nombre: "Jesús María", distrito: "Jesús María", lineas: [4]),
+    Estacion(nombre: "Lince - Javier Prado", distrito: "Lince", lineas: [4]),
+    Estacion(nombre: "San Isidro - Javier Prado", distrito: "San Isidro", lineas: [4]),
+    Estacion(nombre: "San Luis - Circunvalación", distrito: "San Luis", lineas: [4]),
+    Estacion(nombre: "Santiago de Surco - Javier Prado", distrito: "Santiago de Surco", lineas: [4]),
+    Estacion(nombre: "La Molina", distrito: "La Molina", lineas: [4])
 ]
 
 // ---------------------------------------------------------------------
@@ -82,7 +95,7 @@ func estacionesDeLinea(_ linea: Int) -> [Estacion] {
 }
 
 func listarEstaciones() {
-    print("\n¿Qué línea deseas listar? (1-3, 0 = todas)")
+    print("\n¿Qué línea deseas listar? (1-4, 0 = todas)")
 
     guard let opcion = leerEntrada(), let linea = Int(opcion) else {
         print("Opción inválida.")
@@ -96,7 +109,7 @@ func listarEstaciones() {
         return
     }
 
-    print("\n--- Estaciones (\(linea == 0 ? "Línea 1 a 3" : nombreLinea(linea))) ---")
+    print("\n--- Estaciones (\(linea == 0 ? "Línea 1 a 4" : nombreLinea(linea))) ---")
 
     for (i, e) in lista.enumerated() {
         let lineasTxt = e.lineas.map { "L\($0)" }.joined(separator: "/")
