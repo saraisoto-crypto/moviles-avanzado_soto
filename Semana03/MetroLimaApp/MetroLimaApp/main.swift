@@ -78,7 +78,16 @@ let estaciones: [Estacion] = [
     Estacion(nombre: "Miraflores - Costa Verde", distrito: "Miraflores", lineas: [5]),
     Estacion(nombre: "Barranco", distrito: "Barranco", lineas: [5]),
     Estacion(nombre: "Chorrillos", distrito: "Chorrillos", lineas: [5]),
-    Estacion(nombre: "Villa El Salvador - Zona Sur", distrito: "Villa El Salvador", lineas: [5])
+    Estacion(nombre: "Villa El Salvador - Zona Sur", distrito: "Villa El Salvador", lineas: [5]),
+
+    // ---------- LÍNEA 6 (recorrido transversal norte-este-sur) ----------
+    // Trazado real según ATU/PMU: conecta Independencia, San Martín de Porres,
+    // Comas, Surco y La Molina.
+    Estacion(nombre: "Comas", distrito: "Comas", lineas: [6]),
+    Estacion(nombre: "Independencia", distrito: "Independencia", lineas: [6]),
+    Estacion(nombre: "San Martín de Porres", distrito: "San Martín de Porres", lineas: [6]),
+    Estacion(nombre: "La Molina", distrito: "La Molina", lineas: [6]),
+    Estacion(nombre: "Santiago de Surco", distrito: "Santiago de Surco", lineas: [6])
 ]
 
 // ---------------------------------------------------------------------
@@ -102,7 +111,7 @@ func estacionesDeLinea(_ linea: Int) -> [Estacion] {
 }
 
 func listarEstaciones() {
-    print("\n¿Qué línea deseas listar? (1-5, 0 = todas)")
+    print("\n¿Qué línea deseas listar? (1-6, 0 = todas)")
 
     guard let opcion = leerEntrada(), let linea = Int(opcion) else {
         print("Opción inválida.")
@@ -116,7 +125,7 @@ func listarEstaciones() {
         return
     }
 
-    print("\n--- Estaciones (\(linea == 0 ? "Línea 1 a 5" : nombreLinea(linea))) ---")
+    print("\n--- Estaciones (\(linea == 0 ? "Línea 1 a 6" : nombreLinea(linea))) ---")
 
     for (i, e) in lista.enumerated() {
         let lineasTxt = e.lineas.map { "L\($0)" }.joined(separator: "/")
