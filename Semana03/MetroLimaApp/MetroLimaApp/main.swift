@@ -188,11 +188,10 @@ func imprimirDistancia(desde coordUbicacion: Coordenada?, hasta estacion: Estaci
 }
 
 // =====================================================================
-// PLANIFICACIÓN DE VIAJE (ruta directa, transbordo y simulación)
+// COMMIT 1: PLANIFICACIÓN DE VIAJE (ruta directa, transbordo y simulación)
 // =====================================================================
 
 // Devuelve el tramo de estaciones entre "desde" y "hasta" dentro de UNA sola línea.
-// Se usa tanto para rutas directas como para cada mitad de una ruta con transbordo.
 func tramoEnLinea(_ linea: Int, desde: Estacion, hasta: Estacion) -> [Estacion]? {
 
     let lista = estacionesDeLinea(linea)
@@ -208,7 +207,7 @@ func tramoEnLinea(_ linea: Int, desde: Estacion, hasta: Estacion) -> [Estacion]?
 }
 
 // Si origen y destino NO comparten línea directa, busca una estación de transferencia
-// (una estación con más de una línea) que conecte alguna línea del origen con alguna del destino.
+// que conecte alguna línea del origen con alguna del destino.
 func buscarEstacionTransferencia(origen: Estacion, destino: Estacion) -> Estacion? {
     return estaciones.first(where: { estacion in
         estacion.lineas.count > 1 &&
@@ -217,8 +216,8 @@ func buscarEstacionTransferencia(origen: Estacion, destino: Estacion) -> Estacio
     })
 }
 
-// Recorre la ruta estación por estación simulando el viaje.
-// En cada parada muestra cuántas estaciones faltan para llegar al destino final.
+// Recorre la ruta estación por estación simulando el viaje, mostrando cuántas
+// estaciones faltan para llegar al destino final en cada parada.
 func simularViaje(ruta: [Estacion], destinoFinal: String) {
 
     print("\n🚇 SIMULACIÓN DEL VIAJE:")
@@ -234,8 +233,9 @@ func simularViaje(ruta: [Estacion], destinoFinal: String) {
         }
     }
 }
-// Cuando no se encuentra una estación por nombre, intenta sugerir estaciones
-// cercanas por distrito; si no hay relación alguna, informa que esa zona no tiene Metro.
+
+// Cuando no se encuentra una estación por nombre, sugiere estaciones cercanas
+// por distrito; si no hay relación alguna, informa que esa zona no tiene Metro.
 func manejarEstacionNoEncontrada(_ texto: String, tipo: String) {
 
     let normalizado = normalizar(texto)
@@ -248,16 +248,121 @@ func manejarEstacionNoEncontrada(_ texto: String, tipo: String) {
     print("\n⚠️ No se encontró ninguna estación de \(tipo) que coincida con \"\(texto)\".")
 
     if !sugerenciasPorDistrito.isEmpty {
-
         print("¿Quisiste decir alguna de estas estaciones cercanas a esa zona?")
         for estacion in sugerenciasPorDistrito {
             print("→ \(estacion.nombre) (\(estacion.distrito))")
         }
-
     } else {
-
         print("Es posible que ese lugar no tenga estaciones de Metro de Lima, o que el nombre esté mal escrito.")
         print("Prueba con la opción 2 (buscar por nombre) o 3 (buscar por distrito) para ver las estaciones disponibles.")
+    }
+}
+
+// =====================================================================
+// COMMIT 2: TARJETA DE TRANSPORTE (saldo, recarga, cobro, historial)
+// =====================================================================
+
+struct TarjetaTransporte {
+    var saldo: Double
+    var historial: [String]
+}
+
+let tarifaPasaje = 2.50 // tarifa fija del pasaje, en soles
+
+var miTarjeta = TarjetaTransporte(saldo: 5.00, historial: ["Saldo inicial: S/ 5.00"])
+
+// Muestra el saldo actual de la tarjeta
+func consultarSaldo() {
+    print("\n=====================================================")
+    print("             SALDO DE TU TARJETA")
+    print("=====================================================")
+    print(String(format: "💳 Saldo actual: S/ %.2f", miTarjeta.saldo))
+}
+
+// Pide un monto y lo suma al saldo, registrando el movimiento en el historial
+func recargarTarjeta() {
+    print("\n=====================================================")
+    print("           RECARGAR TARJETA")
+    print("=====================================================")
+    print("Ingrese el monto a recargar (S/):")
+
+    guard let entrada = leerEntrada(),
+          let monto = Double(entrada),
+          monto > 0 else {
+        print("Monto inválido. Debe ser un número mayor a 0.")
+        return
+    }
+
+    miTarjeta.saldo += monto
+    miTarjeta.historial.append(String(format: "Recarga: +S/ %.2f", monto))
+
+    print(String(format: "\n✅ Recarga exitosa. Nuevo saldo: S/ %.2f", miTarjeta.saldo))
+}
+
+// Descuenta el pasaje del saldo si alcanza; si no, avisa que falta recargar.
+// Devuelve true si el cobro se realizó con éxito.
+@discardableResult
+func cobrarPasaje() -> Bool {
+    if miTarjeta.saldo < tarifaPasaje {
+        print(String(format: "\n❌ Saldo insuficiente (S/ %.2f). Necesitas recargar tu tarjeta.", miTarjeta.saldo))
+        return false
+    }
+
+    miTarjeta.saldo -= tarifaPasaje
+    miTarjeta.historial.append(String(format: "Pasaje pagado: -S/ %.2f", tarifaPasaje))
+
+    print(String(format: "\n💳 Pasaje cobrado: S/ %.2f | Saldo restante: S/ %.2f", tarifaPasaje, miTarjeta.saldo))
+    return true
+}
+
+// Lista todos los movimientos (recargas y pasajes cobrados)
+func verHistorialTarjeta() {
+    print("\n=====================================================")
+    print("           HISTORIAL DE MOVIMIENTOS")
+    print("=====================================================")
+
+    if miTarjeta.historial.isEmpty {
+        print("No hay movimientos registrados.")
+    } else {
+        for movimiento in miTarjeta.historial {
+            print("→ \(movimiento)")
+        }
+    }
+}
+
+// Al terminar de calcular una ruta, pregunta si desea iniciar el viaje (cobra el pasaje)
+func preguntarInicioViaje() {
+    print("\n¿Deseas iniciar el viaje y cobrar el pasaje desde tu tarjeta? (s/n)")
+    if let respuesta = leerEntrada(), normalizar(respuesta) == "s" {
+        cobrarPasaje()
+    }
+}
+
+// Submenú de la tarjeta de transporte
+func menuTarjeta() {
+    var enMenuTarjeta = true
+
+    while enMenuTarjeta {
+        print("\n=====================================================")
+        print("             TARJETA DE TRANSPORTE")
+        print("=====================================================")
+        print("""
+        1. Consultar saldo
+        2. Recargar tarjeta
+        3. Ver historial de movimientos
+        4. Volver al menú principal
+        """)
+        print("Seleccione una opción:")
+
+        guard let opcion = leerEntrada() else { continue }
+
+        switch opcion {
+        case "1": consultarSaldo()
+        case "2": recargarTarjeta()
+        case "3": verHistorialTarjeta()
+        case "4": enMenuTarjeta = false
+        default: print("Opción inválida.")
+        }
     }
 }
 
@@ -437,7 +542,6 @@ func queLineaTomar() {
         ubicacionNormalizada.contains("centro de lima") ||
         ubicacionNormalizada.contains("cercado de lima")
 
-    // Coordenada aproximada de la ubicación del usuario (para calcular distancia)
     let coordUbicacion: Coordenada? = esCentroDeLima
         ? coordenadasDistrito["cercado de lima"]
         : coordenadaDeUbicacion(ubicacion)
@@ -554,8 +658,8 @@ func estacionesTransferencia() {
 }
 
 // =====================================================================
-// 6. CALCULAR RUTA ENTRE ESTACIONES (ahora con transbordo automático
-//    y simulación de paradas restantes)
+// 6. CALCULAR RUTA ENTRE ESTACIONES (transbordo automático, simulación
+//    de paradas restantes y cobro del pasaje al iniciar el viaje)
 // =====================================================================
 
 func calcularRuta() {
@@ -602,7 +706,6 @@ func calcularRuta() {
     print("\nORIGEN: \(origen.nombre)")
     print("DESTINO: \(destino.nombre)")
 
-    // --- CASO 1: origen y destino comparten al menos una línea → ruta directa ---
     let lineasComunes = origen.lineas.filter { destino.lineas.contains($0) }
 
     if let linea = lineasComunes.first,
@@ -617,6 +720,7 @@ func calcularRuta() {
         print("\nNúmero de paradas: \(max(rango.count - 1, 0))")
 
         simularViaje(ruta: rango, destinoFinal: destino.nombre)
+        preguntarInicioViaje()
 
     } else if let transferencia = buscarEstacionTransferencia(origen: origen, destino: destino),
               let lineaOrigen = origen.lineas.first(where: { transferencia.lineas.contains($0) }),
@@ -624,8 +728,7 @@ func calcularRuta() {
               let tramo1 = tramoEnLinea(lineaOrigen, desde: origen, hasta: transferencia),
               let tramo2 = tramoEnLinea(lineaDestino, desde: transferencia, hasta: destino) {
 
-        // --- CASO 2: no hay línea directa → se arma la ruta con transbordo ---
-        let rutaCompleta = tramo1 + tramo2.dropFirst() // evita repetir la estación de transbordo
+        let rutaCompleta = tramo1 + tramo2.dropFirst()
 
         print("\nNo hay línea directa. Se requiere transbordo en: \(transferencia.nombre)")
         print("\nRuta:")
@@ -642,6 +745,7 @@ func calcularRuta() {
         print("\nNúmero de paradas total: \(max(rutaCompleta.count - 1, 0))")
 
         simularViaje(ruta: Array(rutaCompleta), destinoFinal: destino.nombre)
+        preguntarInicioViaje()
 
     } else {
 
@@ -669,7 +773,8 @@ while continuar {
     4. ¿Qué línea debo tomar según mi ubicación?
     5. Ver estaciones de transferencia
     6. Calcular ruta entre estaciones
-    7. Salir
+    7. Gestionar tarjeta de transporte
+    8. Salir
     """)
 
     print("Seleccione una opción:")
@@ -700,10 +805,13 @@ while continuar {
         calcularRuta()
 
     case "7":
+        menuTarjeta()
+
+    case "8":
         continuar = false
         print("\nGracias por usar Metro Lima App.")
 
     default:
-        print("\nOpción inválida. Seleccione del 1 al 7.")
+        print("\nOpción inválida. Seleccione del 1 al 8.")
     }
 }
