@@ -1,126 +1,677 @@
 import Foundation
 
 // =====================================================================
-// APP: Consulta de Estaciones - Metro de Lima
+// APP: METRO LIMA APP
 // Curso: Programación en Móviles Avanzado
+// =====================================================================
+
+// =====================================================================
+// MODELO
 // =====================================================================
 
 struct Estacion {
     let nombre: String
     let distrito: String
-    let lineas: [Int]
-}
-
-struct Coordenada {
-    let lat: Double
-    let lon: Double
+    var lineas: [Int]
+    let lugares: [String]
 }
 
 // =====================================================================
-// DATOS DE ESTACIONES (duplicados de transferencia eliminados)
+// DATOS DE ESTACIONES
 // =====================================================================
 
-let estaciones: [Estacion] = [
+var estaciones: [Estacion] = [
 
-    // ---------- LÍNEA 1 ----------
-    Estacion(nombre: "Villa El Salvador", distrito: "Villa El Salvador", lineas: [1, 5]),
-    Estacion(nombre: "Parque Industrial", distrito: "Villa El Salvador", lineas: [1]),
-    Estacion(nombre: "Pumacahua", distrito: "Villa María del Triunfo", lineas: [1]),
-    Estacion(nombre: "Villa María", distrito: "Villa María del Triunfo", lineas: [1]),
-    Estacion(nombre: "María Auxiliadora", distrito: "San Juan de Miraflores", lineas: [1]),
-    Estacion(nombre: "San Juan", distrito: "San Juan de Miraflores", lineas: [1]),
-    Estacion(nombre: "Atocongo", distrito: "San Juan de Miraflores", lineas: [1]),
-    Estacion(nombre: "Jorge Chávez", distrito: "Santiago de Surco", lineas: [1]),
-    Estacion(nombre: "Ayacucho", distrito: "Santiago de Surco", lineas: [1]),
-    Estacion(nombre: "Cabitos", distrito: "Santiago de Surco", lineas: [1]),
-    Estacion(nombre: "Angamos", distrito: "San Borja", lineas: [1]),
-    Estacion(nombre: "San Borja Sur", distrito: "San Borja", lineas: [1]),
-    Estacion(nombre: "La Cultura", distrito: "San Borja", lineas: [1]),
-    Estacion(nombre: "Nicolás Arriola", distrito: "La Victoria", lineas: [1]),
-    Estacion(nombre: "Gamarra", distrito: "La Victoria", lineas: [1]),
-    Estacion(nombre: "Miguel Grau", distrito: "Cercado de Lima", lineas: [1]),
-    Estacion(nombre: "El Ángel", distrito: "Cercado de Lima", lineas: [1]),
-    Estacion(nombre: "Presbítero Maestro", distrito: "Cercado de Lima", lineas: [1]),
-    Estacion(nombre: "Caja de Agua", distrito: "San Juan de Lurigancho", lineas: [1]),
-    Estacion(nombre: "Pirámide del Sol", distrito: "San Juan de Lurigancho", lineas: [1]),
-    Estacion(nombre: "Los Jardines", distrito: "San Juan de Lurigancho", lineas: [1]),
-    Estacion(nombre: "Los Postes", distrito: "San Juan de Lurigancho", lineas: [1]),
-    Estacion(nombre: "San Carlos", distrito: "San Juan de Lurigancho", lineas: [1]),
-    Estacion(nombre: "San Martín", distrito: "San Juan de Lurigancho", lineas: [1]),
-    Estacion(nombre: "Santa Rosa", distrito: "San Juan de Lurigancho", lineas: [1]),
-    Estacion(nombre: "Bayóvar", distrito: "San Juan de Lurigancho", lineas: [1]),
+    // ==================== LÍNEA 1 ====================
 
-    // ---------- LÍNEA 2 ----------
-    Estacion(nombre: "Municipalidad de Ate", distrito: "Ate", lineas: [2]),
-    Estacion(nombre: "Vista Alegre", distrito: "Ate", lineas: [2, 5]),
-    Estacion(nombre: "Prolongación Javier Prado", distrito: "Ate", lineas: [2]),
-    Estacion(nombre: "Ingeniería", distrito: "San Martín de Porres", lineas: [2]),
-    Estacion(nombre: "San Marcos", distrito: "Cercado de Lima", lineas: [2]),
-    Estacion(nombre: "Elio", distrito: "Cercado de Lima", lineas: [2]),
-    Estacion(nombre: "La Alborada", distrito: "Cercado de Lima", lineas: [2]),
-    Estacion(nombre: "Juan Pablo II", distrito: "Bellavista", lineas: [2]),
-    Estacion(nombre: "Buenos Aires", distrito: "Bellavista", lineas: [2]),
-    Estacion(nombre: "Puerto del Callao", distrito: "Callao", lineas: [2]),
-    Estacion(nombre: "Insurgentes", distrito: "Callao", lineas: [2]),
-    Estacion(nombre: "Carmen de la Legua", distrito: "Carmen de la Legua", lineas: [2, 4]),
-    Estacion(nombre: "Óvalo 200 Millas", distrito: "Callao", lineas: [2]),
-    Estacion(nombre: "Aeropuerto", distrito: "Callao", lineas: [2]),
+    Estacion(
+        nombre: "Villa El Salvador",
+        distrito: "Villa El Salvador",
+        lineas: [1],
+        lugares: [
+            "Accesos de entrada y salida",
+            "Comercios y servicios cercanos",
+            "Paraderos de transporte público"
+        ]
+    ),
 
-    // ---------- LÍNEA 3 ----------
-    Estacion(nombre: "Naranjal", distrito: "Independencia", lineas: [3]),
-    Estacion(nombre: "Túpac Amaru", distrito: "Independencia", lineas: [3]),
-    Estacion(nombre: "Universitaria", distrito: "Los Olivos", lineas: [3, 6]),
-    Estacion(nombre: "Centro de Lima", distrito: "Cercado de Lima", lineas: [3]),
-    Estacion(nombre: "Tacna", distrito: "Cercado de Lima", lineas: [3]),
-    Estacion(nombre: "Avenida Arequipa", distrito: "Cercado de Lima", lineas: [3]),
-    Estacion(nombre: "Miraflores", distrito: "Miraflores", lineas: [3, 6]),
-    Estacion(nombre: "Surco", distrito: "Santiago de Surco", lineas: [3]),
-    Estacion(nombre: "Chorrillos", distrito: "Chorrillos", lineas: [3]),
+    Estacion(
+        nombre: "Parque Industrial",
+        distrito: "Villa El Salvador",
+        lineas: [1],
+        lugares: [
+            "Zona industrial",
+            "Comercios cercanos",
+            "Paraderos de transporte público"
+        ]
+    ),
 
-    // ---------- LÍNEA 4 ----------
-    Estacion(nombre: "Gambetta", distrito: "Callao", lineas: [4]),
-    Estacion(nombre: "Canta Callao", distrito: "Callao", lineas: [4]),
-    Estacion(nombre: "Bocanegra", distrito: "Callao", lineas: [4]),
-    Estacion(nombre: "Elmer Faucett", distrito: "Callao", lineas: [4]),
-    Estacion(nombre: "Jorge Chávez", distrito: "Callao", lineas: [4]),
+    Estacion(
+        nombre: "Pumacahua",
+        distrito: "Villa El Salvador",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
 
-    // ---------- LÍNEA 5 ----------
-    Estacion(nombre: "Mateo Pumacahua", distrito: "Villa María del Triunfo", lineas: [5]),
-    Estacion(nombre: "Las Delicias", distrito: "Villa María del Triunfo", lineas: [5]),
-    Estacion(nombre: "Estadio", distrito: "Villa El Salvador", lineas: [5]),
+    Estacion(
+        nombre: "Villa María",
+        distrito: "Villa María del Triunfo",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
 
-    // ---------- LÍNEA 6 ----------
-    Estacion(nombre: "Independencia", distrito: "Independencia", lineas: [6]),
-    Estacion(nombre: "Los Olivos", distrito: "Los Olivos", lineas: [6]),
-    Estacion(nombre: "San Miguel", distrito: "San Miguel", lineas: [6]),
-    Estacion(nombre: "Magdalena", distrito: "Magdalena", lineas: [6])
-]
+    Estacion(
+        nombre: "María Auxiliadora",
+        distrito: "San Juan de Miraflores",
+        lineas: [1],
+        lugares: [
+            "Hospital María Auxiliadora",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
 
-// =====================================================================
-// COORDENADAS APROXIMADAS POR DISTRITO (centroide, uso académico)
-// Se usan solo para estimar distancia en línea recta, no una ruta real.
-// =====================================================================
+    Estacion(
+        nombre: "San Juan",
+        distrito: "San Juan de Miraflores",
+        lineas: [1],
+        lugares: [
+            "Comercios y servicios",
+            "Paraderos de transporte",
+            "Zona comercial"
+        ]
+    ),
 
-let coordenadasDistrito: [String: Coordenada] = [
-    "villa el salvador": Coordenada(lat: -12.2153, lon: -76.9438),
-    "villa maria del triunfo": Coordenada(lat: -12.1622, lon: -76.9350),
-    "san juan de miraflores": Coordenada(lat: -12.1547, lon: -76.9722),
-    "santiago de surco": Coordenada(lat: -12.1352, lon: -76.9908),
-    "san borja": Coordenada(lat: -12.1019, lon: -76.9975),
-    "la victoria": Coordenada(lat: -12.0693, lon: -77.0198),
-    "cercado de lima": Coordenada(lat: -12.0464, lon: -77.0428),
-    "san juan de lurigancho": Coordenada(lat: -11.9971, lon: -77.0058),
-    "ate": Coordenada(lat: -12.0333, lon: -76.9167),
-    "san martin de porres": Coordenada(lat: -12.0000, lon: -77.0833),
-    "bellavista": Coordenada(lat: -12.0578, lon: -77.1128),
-    "callao": Coordenada(lat: -12.0566, lon: -77.1181),
-    "carmen de la legua": Coordenada(lat: -12.0392, lon: -77.0942),
-    "independencia": Coordenada(lat: -11.9903, lon: -77.0508),
-    "los olivos": Coordenada(lat: -11.9800, lon: -77.0700),
-    "miraflores": Coordenada(lat: -12.1211, lon: -77.0295),
-    "chorrillos": Coordenada(lat: -12.1725, lon: -77.0181),
-    "magdalena": Coordenada(lat: -12.0928, lon: -77.0742),
-    "san miguel": Coordenada(lat: -12.0775, lon: -77.0928)
+    Estacion(
+        nombre: "Atocongo",
+        distrito: "San Juan de Miraflores",
+        lineas: [1],
+        lugares: [
+            "Centro Comercial Mall del Sur",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Jorge Chávez",
+        distrito: "Santiago de Surco",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Ayacucho",
+        distrito: "Santiago de Surco",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Cabitos",
+        distrito: "Santiago de Surco",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Angamos",
+        distrito: "Surquillo",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "San Borja Sur",
+        distrito: "San Borja",
+        lineas: [1],
+        lugares: [
+            "Parque de la Felicidad",
+            "Comercios cercanos",
+            "Servicios locales"
+        ]
+    ),
+
+    Estacion(
+        nombre: "La Cultura",
+        distrito: "San Borja",
+        lineas: [1],
+        lugares: [
+            "Museo de la Nación",
+            "Biblioteca Nacional del Perú",
+            "Gran Teatro Nacional"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Nicolás Arriola",
+        distrito: "La Victoria",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Gamarra",
+        distrito: "La Victoria",
+        lineas: [1],
+        lugares: [
+            "Emporio Comercial de Gamarra",
+            "Tiendas de ropa",
+            "Comercios y servicios"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Grau",
+        distrito: "Cercado de Lima",
+        lineas: [1],
+        lugares: [
+            "Hospital Nacional Dos de Mayo",
+            "Centro Histórico cercano",
+            "Comercios y servicios"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Presbítero Maestro",
+        distrito: "Cercado de Lima",
+        lineas: [1],
+        lugares: [
+            "Cementerio Presbítero Matías Maestro",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Caja de Agua",
+        distrito: "San Juan de Lurigancho",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Pirámide del Sol",
+        distrito: "San Juan de Lurigancho",
+        lineas: [1],
+        lugares: [
+            "Zona comercial",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Los Jardines",
+        distrito: "San Juan de Lurigancho",
+        lineas: [1],
+        lugares: [
+            "Comercios y servicios",
+            "Paraderos de transporte",
+            "Zona residencial"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Los Postes",
+        distrito: "San Juan de Lurigancho",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "San Carlos",
+        distrito: "San Juan de Lurigancho",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "San Martín",
+        distrito: "San Juan de Lurigancho",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Santa Rosa",
+        distrito: "San Juan de Lurigancho",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Bayóvar",
+        distrito: "San Juan de Lurigancho",
+        lineas: [1],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    // ==================== LÍNEA 2 ====================
+
+    Estacion(
+        nombre: "Municipalidad de Ate",
+        distrito: "Ate",
+        lineas: [2],
+        lugares: [
+            "Municipalidad de Ate",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Vista Alegre",
+        distrito: "Ate",
+        lineas: [2],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Prolongación Javier Prado",
+        distrito: "Ate",
+        lineas: [2],
+        lugares: [
+            "Avenida Javier Prado",
+            "Comercios cercanos",
+            "Servicios locales"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Mercado Santa Anita",
+        distrito: "Santa Anita",
+        lineas: [2],
+        lugares: [
+            "Mercado de Productores de Santa Anita",
+            "Comercios y restaurantes",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Hermilio Valdizán",
+        distrito: "Santa Anita",
+        lineas: [2],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Colectora Industrial",
+        distrito: "Santa Anita",
+        lineas: [2],
+        lugares: [
+            "Zona industrial",
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Óvalo Santa Anita",
+        distrito: "Santa Anita",
+        lineas: [2],
+        lugares: [
+            "Óvalo Santa Anita",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Evitamiento",
+        distrito: "El Agustino",
+        lineas: [2],
+        lugares: [
+            "Avenida Evitamiento",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "San Juan de Lurigancho",
+        distrito: "San Juan de Lurigancho",
+        lineas: [2],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    // ==================== LÍNEA 3 ====================
+
+    Estacion(
+        nombre: "Callao",
+        distrito: "Callao",
+        lineas: [3],
+        lugares: [
+            "Puerto del Callao",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Bellavista",
+        distrito: "Bellavista",
+        lineas: [3],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Carmen de la Legua",
+        distrito: "Carmen de la Legua",
+        lineas: [3],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "San Miguel",
+        distrito: "San Miguel",
+        lineas: [3],
+        lugares: [
+            "Parque de las Leyendas",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Magdalena",
+        distrito: "Magdalena del Mar",
+        lineas: [3],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Jesús María",
+        distrito: "Jesús María",
+        lineas: [3],
+        lugares: [
+            "Campo de Marte",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Lince",
+        distrito: "Lince",
+        lineas: [3],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Arequipa",
+        distrito: "Lince",
+        lineas: [3],
+        lugares: [
+            "Avenida Arequipa",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Miraflores",
+        distrito: "Miraflores",
+        lineas: [3],
+        lugares: [
+            "Parque Kennedy",
+            "Comercios cercanos",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    // ==================== LÍNEA 4 ====================
+
+    Estacion(
+        nombre: "Faustino Sánchez Carrión",
+        distrito: "San Juan de Lurigancho",
+        lineas: [4],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Santa Rosa",
+        distrito: "San Juan de Lurigancho",
+        lineas: [4],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "El Agustino",
+        distrito: "El Agustino",
+        lineas: [4],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "La Victoria",
+        distrito: "La Victoria",
+        lineas: [4],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Lince",
+        distrito: "Lince",
+        lineas: [4],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    // ==================== LÍNEA 5 ====================
+
+    Estacion(
+        nombre: "Villa El Salvador",
+        distrito: "Villa El Salvador",
+        lineas: [5],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "San Juan de Miraflores",
+        distrito: "San Juan de Miraflores",
+        lineas: [5],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Surco",
+        distrito: "Santiago de Surco",
+        lineas: [5],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "La Molina",
+        distrito: "La Molina",
+        lineas: [5],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    // ==================== LÍNEA 6 ====================
+
+    Estacion(
+        nombre: "Ate",
+        distrito: "Ate",
+        lineas: [6],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Santa Anita",
+        distrito: "Santa Anita",
+        lineas: [6],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "San Luis",
+        distrito: "San Luis",
+        lineas: [6],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "San Borja",
+        distrito: "San Borja",
+        lineas: [6],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Surquillo",
+        distrito: "Surquillo",
+        lineas: [6],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    ),
+
+    Estacion(
+        nombre: "Miraflores",
+        distrito: "Miraflores",
+        lineas: [6],
+        lugares: [
+            "Comercios cercanos",
+            "Servicios locales",
+            "Paraderos de transporte"
+        ]
+    )
 ]
 
 // =====================================================================
@@ -140,230 +691,30 @@ func leerEntrada() -> String? {
     return readLine()?.trimmingCharacters(in: .whitespacesAndNewlines)
 }
 
-func nombreLinea(_ linea: Int) -> String {
-    return "Línea \(linea)"
-}
+func buscarEstacion(_ nombre: String) -> Estacion? {
 
-func estacionesDeLinea(_ linea: Int) -> [Estacion] {
-    return estaciones.filter {
-        $0.lineas.contains(linea)
-    }
-}
+    let buscada = normalizar(nombre)
 
-func distanciaHaversine(_ c1: Coordenada, _ c2: Coordenada) -> Double {
-    let radioTierra = 6371000.0 // metros
-
-    let lat1 = c1.lat * .pi / 180
-    let lat2 = c2.lat * .pi / 180
-    let deltaLat = (c2.lat - c1.lat) * .pi / 180
-    let deltaLon = (c2.lon - c1.lon) * .pi / 180
-
-    let a = sin(deltaLat / 2) * sin(deltaLat / 2) +
-            cos(lat1) * cos(lat2) *
-            sin(deltaLon / 2) * sin(deltaLon / 2)
-    let c = 2 * atan2(sqrt(a), sqrt(1 - a))
-
-    return radioTierra * c
-}
-
-// Busca la coordenada de un distrito de forma flexible (contiene / está contenido)
-func coordenadaDeUbicacion(_ ubicacion: String) -> Coordenada? {
-    let texto = normalizar(ubicacion)
-    return coordenadasDistrito.first(where: {
-        texto.contains($0.key) || $0.key.contains(texto)
-    })?.value
-}
-
-// Imprime la distancia aproximada y el tiempo caminando entre una ubicación y una estación
-func imprimirDistancia(desde coordUbicacion: Coordenada?, hasta estacion: Estacion) {
-    guard let origen = coordUbicacion,
-          let destino = coordenadasDistrito[normalizar(estacion.distrito)] else {
-        return
-    }
-
-    let metros = distanciaHaversine(origen, destino)
-    let minutos = metros / 83.3 // ritmo promedio de caminata: ~5 km/h
-
-    print("   Distancia aproximada: \(Int(metros)) m (≈ \(Int(minutos.rounded())) min caminando)")
-}
-
-// =====================================================================
-// COMMIT 1: PLANIFICACIÓN DE VIAJE (ruta directa, transbordo y simulación)
-// =====================================================================
-
-// Devuelve el tramo de estaciones entre "desde" y "hasta" dentro de UNA sola línea.
-func tramoEnLinea(_ linea: Int, desde: Estacion, hasta: Estacion) -> [Estacion]? {
-
-    let lista = estacionesDeLinea(linea)
-
-    guard let inicio = lista.firstIndex(where: { $0.nombre == desde.nombre }),
-          let fin = lista.firstIndex(where: { $0.nombre == hasta.nombre }) else {
-        return nil
-    }
-
-    return inicio <= fin
-        ? Array(lista[inicio...fin])
-        : Array(lista[fin...inicio].reversed())
-}
-
-// Si origen y destino NO comparten línea directa, busca una estación de transferencia
-// que conecte alguna línea del origen con alguna del destino.
-func buscarEstacionTransferencia(origen: Estacion, destino: Estacion) -> Estacion? {
-    return estaciones.first(where: { estacion in
-        estacion.lineas.count > 1 &&
-        !Set(estacion.lineas).isDisjoint(with: Set(origen.lineas)) &&
-        !Set(estacion.lineas).isDisjoint(with: Set(destino.lineas))
-    })
-}
-
-// Recorre la ruta estación por estación simulando el viaje, mostrando cuántas
-// estaciones faltan para llegar al destino final en cada parada.
-func simularViaje(ruta: [Estacion], destinoFinal: String) {
-
-    print("\n🚇 SIMULACIÓN DEL VIAJE:")
-
-    for (indice, estacion) in ruta.enumerated() {
-
-        let paradasRestantes = ruta.count - 1 - indice
-
-        if estacion.nombre == destinoFinal {
-            print("🏁 Llegaste a \(estacion.nombre) (\(estacion.distrito)). ¡Fin del viaje!")
-        } else {
-            print("📍 Llegando a \(estacion.nombre) (\(estacion.distrito)) — te faltan \(paradasRestantes) parada(s) para llegar a \(destinoFinal).")
-        }
-    }
-}
-
-// Cuando no se encuentra una estación por nombre, sugiere estaciones cercanas
-// por distrito; si no hay relación alguna, informa que esa zona no tiene Metro.
-func manejarEstacionNoEncontrada(_ texto: String, tipo: String) {
-
-    let normalizado = normalizar(texto)
-
-    let sugerenciasPorDistrito = estaciones.filter {
-        normalizar($0.distrito).contains(normalizado) ||
-        normalizado.contains(normalizar($0.distrito))
-    }
-
-    print("\n⚠️ No se encontró ninguna estación de \(tipo) que coincida con \"\(texto)\".")
-
-    if !sugerenciasPorDistrito.isEmpty {
-        print("¿Quisiste decir alguna de estas estaciones cercanas a esa zona?")
-        for estacion in sugerenciasPorDistrito {
-            print("→ \(estacion.nombre) (\(estacion.distrito))")
-        }
-    } else {
-        print("Es posible que ese lugar no tenga estaciones de Metro de Lima, o que el nombre esté mal escrito.")
-        print("Prueba con la opción 2 (buscar por nombre) o 3 (buscar por distrito) para ver las estaciones disponibles.")
+    return estaciones.first {
+        normalizar($0.nombre) == buscada
     }
 }
 
 // =====================================================================
-// COMMIT 2: TARJETA DE TRANSPORTE (saldo, recarga, cobro, historial)
+// FUNCIÓN PARA OBTENER LÍNEAS DISPONIBLES
 // =====================================================================
 
-struct TarjetaTransporte {
-    var saldo: Double
-    var historial: [String]
-}
+func obtenerLineasDisponibles() -> [Int] {
 
-let tarifaPasaje = 2.50 // tarifa fija del pasaje, en soles
+    var lineas: Set<Int> = []
 
-var miTarjeta = TarjetaTransporte(saldo: 5.00, historial: ["Saldo inicial: S/ 5.00"])
-
-// Muestra el saldo actual de la tarjeta
-func consultarSaldo() {
-    print("\n=====================================================")
-    print("             SALDO DE TU TARJETA")
-    print("=====================================================")
-    print(String(format: "💳 Saldo actual: S/ %.2f", miTarjeta.saldo))
-}
-
-// Pide un monto y lo suma al saldo, registrando el movimiento en el historial
-func recargarTarjeta() {
-    print("\n=====================================================")
-    print("           RECARGAR TARJETA")
-    print("=====================================================")
-    print("Ingrese el monto a recargar (S/):")
-
-    guard let entrada = leerEntrada(),
-          let monto = Double(entrada),
-          monto > 0 else {
-        print("Monto inválido. Debe ser un número mayor a 0.")
-        return
-    }
-
-    miTarjeta.saldo += monto
-    miTarjeta.historial.append(String(format: "Recarga: +S/ %.2f", monto))
-
-    print(String(format: "\n✅ Recarga exitosa. Nuevo saldo: S/ %.2f", miTarjeta.saldo))
-}
-
-// Descuenta el pasaje del saldo si alcanza; si no, avisa que falta recargar.
-// Devuelve true si el cobro se realizó con éxito.
-@discardableResult
-func cobrarPasaje() -> Bool {
-    if miTarjeta.saldo < tarifaPasaje {
-        print(String(format: "\n❌ Saldo insuficiente (S/ %.2f). Necesitas recargar tu tarjeta.", miTarjeta.saldo))
-        return false
-    }
-
-    miTarjeta.saldo -= tarifaPasaje
-    miTarjeta.historial.append(String(format: "Pasaje pagado: -S/ %.2f", tarifaPasaje))
-
-    print(String(format: "\n💳 Pasaje cobrado: S/ %.2f | Saldo restante: S/ %.2f", tarifaPasaje, miTarjeta.saldo))
-    return true
-}
-
-// Lista todos los movimientos (recargas y pasajes cobrados)
-func verHistorialTarjeta() {
-    print("\n=====================================================")
-    print("           HISTORIAL DE MOVIMIENTOS")
-    print("=====================================================")
-
-    if miTarjeta.historial.isEmpty {
-        print("No hay movimientos registrados.")
-    } else {
-        for movimiento in miTarjeta.historial {
-            print("→ \(movimiento)")
+    for estacion in estaciones {
+        for linea in estacion.lineas {
+            lineas.insert(linea)
         }
     }
-}
 
-// Al terminar de calcular una ruta, pregunta si desea iniciar el viaje (cobra el pasaje)
-func preguntarInicioViaje() {
-    print("\n¿Deseas iniciar el viaje y cobrar el pasaje desde tu tarjeta? (s/n)")
-    if let respuesta = leerEntrada(), normalizar(respuesta) == "s" {
-        cobrarPasaje()
-    }
-}
-
-// Submenú de la tarjeta de transporte
-func menuTarjeta() {
-    var enMenuTarjeta = true
-
-    while enMenuTarjeta {
-        print("\n=====================================================")
-        print("             TARJETA DE TRANSPORTE")
-        print("=====================================================")
-        print("""
-        1. Consultar saldo
-        2. Recargar tarjeta
-        3. Ver historial de movimientos
-        4. Volver al menú principal
-        """)
-        print("Seleccione una opción:")
-
-        guard let opcion = leerEntrada() else { continue }
-
-        switch opcion {
-        case "1": consultarSaldo()
-        case "2": recargarTarjeta()
-        case "3": verHistorialTarjeta()
-        case "4": enMenuTarjeta = false
-        default: print("Opción inválida.")
-        }
-    }
+    return lineas.sorted()
 }
 
 // =====================================================================
@@ -373,256 +724,216 @@ func menuTarjeta() {
 func listarEstaciones() {
 
     print("\n=====================================================")
-    print("                 LISTAR ESTACIONES")
+    print("              LISTAR ESTACIONES")
     print("=====================================================")
 
-    print("""
-    1. Línea 1
-    2. Línea 2
-    3. Línea 3
-    4. Línea 4
-    5. Línea 5
-    6. Línea 6
-    7. Todas las líneas
-    """)
+    let lineasDisponibles = obtenerLineasDisponibles()
 
-    print("Seleccione una opción:")
+    print("\nLíneas disponibles:")
 
-    guard let opcion = leerEntrada(), let numero = Int(opcion) else {
+    for (indice, linea) in lineasDisponibles.enumerated() {
+        print("\(indice + 1). Línea \(linea)")
+    }
+
+    print("\(lineasDisponibles.count + 1). Todas las líneas (agrupadas)")
+
+    print("\nSeleccione una opción:")
+
+    guard let opcion = leerEntrada() else {
+        print("Entrada no válida.")
+        return
+    }
+
+    guard let opcionNumero = Int(opcion),
+          opcionNumero >= 1,
+          opcionNumero <= lineasDisponibles.count + 1 else {
+
         print("Opción inválida.")
         return
     }
 
-    if numero == 7 {
+    if opcionNumero == lineasDisponibles.count + 1 {
 
-        for linea in 1...6 {
-            let lista = estacionesDeLinea(linea)
-            print("\nESTACIONES DE LA \(nombreLinea(linea).uppercased()):")
-            for (indice, estacion) in lista.enumerated() {
-                print("\(indice + 1). \(estacion.nombre) — \(estacion.distrito)")
+        // ---------------------------------------------------------
+        // MOSTRAR TODAS LAS LÍNEAS AGRUPADAS
+        // ---------------------------------------------------------
+
+        print("\n--- TODAS LAS ESTACIONES ---")
+
+        for linea in lineasDisponibles {
+
+            print("\n=== LÍNEA \(linea) ===")
+
+            var contador = 1
+
+            for estacion in estaciones {
+
+                if estacion.lineas.contains(linea) {
+
+                    print(
+                        "\(contador). \(estacion.nombre) - \(estacion.distrito)"
+                    )
+
+                    contador += 1
+                }
             }
         }
 
-    } else if (1...6).contains(numero) {
-
-        let lista = estacionesDeLinea(numero)
-        print("\nESTACIONES DE LA \(nombreLinea(numero).uppercased()):")
-        for (indice, estacion) in lista.enumerated() {
-            print("\(indice + 1). \(estacion.nombre) — \(estacion.distrito)")
-        }
-
     } else {
-        print("Opción inválida.")
+
+        // ---------------------------------------------------------
+        // MOSTRAR ESTACIONES DE UNA LÍNEA ESPECÍFICA
+        // ---------------------------------------------------------
+
+        let lineaSeleccionada = lineasDisponibles[opcionNumero - 1]
+
+        print("\n--- ESTACIONES LÍNEA \(lineaSeleccionada) ---")
+
+        var contador = 1
+
+        for estacion in estaciones {
+
+            if estacion.lineas.contains(lineaSeleccionada) {
+
+                print(
+                    "\(contador). \(estacion.nombre) - \(estacion.distrito)"
+                )
+
+                contador += 1
+            }
+        }
     }
 }
 
 // =====================================================================
-// 2. BUSCAR ESTACIÓN POR NOMBRE
+// 2. BUSCAR ESTACIÓN
 // =====================================================================
 
 func buscarPorNombre() {
 
     print("\n=====================================================")
-    print("              BUSCAR ESTACIÓN POR NOMBRE")
+    print("               BUSCAR ESTACIÓN")
     print("=====================================================")
 
-    print("Ingrese el nombre de la estación:")
+    print("\nIngrese el nombre de la estación:")
 
-    guard let entrada = leerEntrada(),
-          !entrada.isEmpty else {
-        print("Debe ingresar un nombre.")
+    guard let nombre = leerEntrada(), !nombre.isEmpty else {
+        print("Nombre no válido.")
         return
     }
 
-    let texto = normalizar(entrada)
+    if let estacion = buscarEstacion(nombre) {
 
-    let resultados = estaciones.filter {
-        normalizar($0.nombre).contains(texto)
-    }
-
-    if resultados.isEmpty {
-
-        print("\nNo se encontró ninguna estación.")
+        print("\nEstación encontrada:")
+        print("Nombre: \(estacion.nombre)")
+        print("Distrito: \(estacion.distrito)")
+        print("Líneas: \(estacion.lineas)")
 
     } else {
 
-        print("\nESTACIONES ENCONTRADAS:")
-
-        for estacion in resultados {
-
-            let lineasTexto = estacion.lineas
-                .map { nombreLinea($0) }
-                .joined(separator: ", ")
-
-            print("→ \(estacion.nombre)")
-            print("   Distrito: \(estacion.distrito)")
-            print("   Líneas: \(lineasTexto)")
-        }
+        print("\nNo se encontró la estación.")
     }
 }
 
 // =====================================================================
-// 3. BUSCAR POR DISTRITO / LUGAR
+// 3. BUSCAR LÍNEAS POR DISTRITO
 // =====================================================================
 
 func buscarPorDistrito() {
 
     print("\n=====================================================")
-    print("          BUSCAR ESTACIONES POR DISTRITO")
+    print("          LÍNEAS POR DISTRITO O LUGAR")
     print("=====================================================")
 
-    print("Ingrese un distrito o lugar:")
+    print("\nIngrese el distrito o lugar:")
 
-    guard let entrada = leerEntrada(),
-          !entrada.isEmpty else {
-        print("Debe ingresar un lugar.")
+    guard let lugar = leerEntrada(), !lugar.isEmpty else {
+        print("Lugar no válido.")
         return
     }
 
-    let texto = normalizar(entrada)
+    let buscado = normalizar(lugar)
 
     let resultados = estaciones.filter {
-
-        normalizar($0.distrito).contains(texto) ||
-        normalizar($0.nombre).contains(texto)
+        normalizar($0.distrito).contains(buscado)
     }
 
     if resultados.isEmpty {
 
-        print("\nNo se encontraron estaciones.")
+        print("\nNo se encontraron estaciones en ese lugar.")
+        return
+    }
 
-    } else {
+    print("\nEstaciones encontradas:")
 
-        print("\nESTACIONES ENCONTRADAS:")
+    for estacion in resultados {
 
-        for estacion in resultados {
-
-            let lineasTexto = estacion.lineas
-                .map { nombreLinea($0) }
-                .joined(separator: ", ")
-
-            print("→ \(estacion.nombre)")
-            print("   Distrito: \(estacion.distrito)")
-            print("   Líneas: \(lineasTexto)")
-        }
+        print(
+            "- \(estacion.nombre) | Líneas: \(estacion.lineas)"
+        )
     }
 }
 
 // =====================================================================
-// 4. ¿QUÉ LÍNEA DEBO TOMAR? (con distancia y tiempo estimado)
+// 4. LÍNEA SEGÚN UBICACIÓN
 // =====================================================================
 
-func queLineaTomar() {
+func lineaSegunUbicacion() {
 
     print("\n=====================================================")
-    print("             ¿QUÉ LÍNEA DEBO TOMAR?")
+    print("            LÍNEA SEGÚN UBICACIÓN")
     print("=====================================================")
 
-    print("\n¿Dónde te encuentras?")
-    print("Ejemplo: Centro de Lima, Cercado de Lima, San Borja")
+    print("\nIngrese su ubicación:")
 
-    guard let ubicacion = leerEntrada(),
-          !ubicacion.isEmpty else {
-        print("Debes escribir una ubicación.")
+    guard let ubicacion = leerEntrada(), !ubicacion.isEmpty else {
+        print("Ubicación no válida.")
         return
     }
 
-    print("\n¿Qué línea quieres tomar? (1-6)")
+    let buscada = normalizar(ubicacion)
 
-    guard let lineaTexto = leerEntrada(),
-          let linea = Int(lineaTexto),
-          (1...6).contains(linea) else {
-        print("Línea inválida. Debes elegir una línea del 1 al 6.")
+    // Primero se verifica si lo escrito es una estación.
+    if let estacion = buscarEstacion(ubicacion) {
+
+        print("\nLa estación encontrada es:")
+        print(estacion.nombre)
+
+        print("Distrito: \(estacion.distrito)")
+        print("Líneas disponibles: \(estacion.lineas)")
+
         return
     }
 
-    let ubicacionNormalizada = normalizar(ubicacion)
-
-    let esCentroDeLima =
-        ubicacionNormalizada.contains("centro de lima") ||
-        ubicacionNormalizada.contains("cercado de lima")
-
-    let coordUbicacion: Coordenada? = esCentroDeLima
-        ? coordenadasDistrito["cercado de lima"]
-        : coordenadaDeUbicacion(ubicacion)
-
-    var estacionesEncontradas: [Estacion] = []
-
-    if esCentroDeLima {
-
-        estacionesEncontradas = estaciones.filter {
-            normalizar($0.distrito).contains("cercado de lima") &&
-            $0.lineas.contains(linea)
-        }
-
-    } else {
-
-        estacionesEncontradas = estaciones.filter {
-            normalizar($0.distrito).contains(ubicacionNormalizada) &&
-            $0.lineas.contains(linea)
-        }
+    // Si no es estación, se busca por distrito.
+    let resultados = estaciones.filter {
+        normalizar($0.distrito).contains(buscada)
     }
 
-    print("\n=====================================================")
-    print("                 RUTA HACIA LA LÍNEA")
-    print("=====================================================")
+    if resultados.isEmpty {
 
-    print("Tu ubicación: \(ubicacion)")
-    print("Línea que quieres tomar: \(nombreLinea(linea))")
+        if buscada.contains("centro de lima") ||
+            buscada == "centro" {
 
-    if !estacionesEncontradas.isEmpty {
-
-        print("\nEncontramos estas estaciones de \(nombreLinea(linea)):")
-
-        for estacion in estacionesEncontradas {
-            print("→ \(estacion.nombre)")
-            imprimirDistancia(desde: coordUbicacion, hasta: estacion)
-        }
-
-        print("\nPara tomar \(nombreLinea(linea)), debes dirigirte a una de estas estaciones.")
-
-        if estacionesEncontradas.count == 1 {
-
-            print("\n📍 Dirección:")
-            print("Desde \(ubicacion), debes dirigirte hacia:")
-            print("→ \(estacionesEncontradas[0].nombre)")
+            print("\nEstás en el Centro de Lima.")
+            print("Puedes dirigirte hacia una estación cercana.")
+            print("Una opción es dirigirte hacia Grau.")
 
         } else {
 
-            print("\n📍 Puedes dirigirte hacia cualquiera de estas estaciones (elige la más cercana según la distancia mostrada arriba):")
-
-            for estacion in estacionesEncontradas {
-                print("→ \(estacion.nombre)")
-            }
+            print("\nNo se encontraron estaciones cercanas.")
         }
 
-        if coordUbicacion == nil {
-            print("\n⚠️ No se pudo calcular la distancia porque no reconocemos ese distrito.")
-        } else {
-            print("\nℹ️ Las distancias son aproximadas: se calculan en línea recta entre el centro de tu distrito y el de la estación, no siguen calles reales.")
-        }
+        return
+    }
 
-    } else {
+    print("\nEstaciones disponibles desde \(ubicacion):")
 
-        print("\nNo encontramos una estación de \(nombreLinea(linea))")
-        print("directamente en \(ubicacion).")
+    for estacion in resultados {
 
-        print("\nDebes dirigirte a una estación de \(nombreLinea(linea)).")
-
-        let estacionesLinea = estacionesDeLinea(linea)
-
-        print("\nEstaciones disponibles:")
-
-        for estacion in estacionesLinea {
-            print("→ \(estacion.nombre) — \(estacion.distrito)")
-            imprimirDistancia(desde: coordUbicacion, hasta: estacion)
-        }
-
-        if coordUbicacion == nil {
-            print("\n⚠️ No se pudo calcular la distancia porque no reconocemos ese distrito.")
-        } else {
-            print("\nℹ️ Las distancias son aproximadas: se calculan en línea recta entre el centro de tu distrito y el de la estación, no siguen calles reales.")
-        }
+        print(
+            "- \(estacion.nombre) → Líneas \(estacion.lineas)"
+        )
     }
 }
 
@@ -633,185 +944,593 @@ func queLineaTomar() {
 func estacionesTransferencia() {
 
     print("\n=====================================================")
-    print("            ESTACIONES DE TRANSFERENCIA")
+    print("          ESTACIONES DE TRANSFERENCIA")
     print("=====================================================")
 
-    let transferencias = estaciones.filter { $0.lineas.count > 1 }
+    let transferencias = estaciones.filter {
+        $0.lineas.count > 1
+    }
 
     if transferencias.isEmpty {
 
-        print("No se encontraron estaciones de transferencia.")
+        print("\nActualmente no hay estaciones registradas")
+        print("como transferencia entre líneas.")
 
     } else {
 
         for estacion in transferencias {
 
-            let lineasTexto = estacion.lineas
-                .map { nombreLinea($0) }
-                .joined(separator: " y ")
-
-            print("→ \(estacion.nombre)")
-            print("   Distrito: \(estacion.distrito)")
-            print("   Líneas: \(lineasTexto)")
+            print("- \(estacion.nombre)")
+            print("  Líneas: \(estacion.lineas)")
         }
     }
 }
 
 // =====================================================================
-// 6. CALCULAR RUTA ENTRE ESTACIONES (transbordo automático, simulación
-//    de paradas restantes y cobro del pasaje al iniciar el viaje)
+// 6. CALCULAR RUTA
 // =====================================================================
 
 func calcularRuta() {
 
     print("\n=====================================================")
-    print("             CALCULAR RUTA")
+    print("                CALCULAR RUTA")
     print("=====================================================")
 
-    print("Ingrese estación de origen:")
+    print("\nIngrese la estación de origen:")
 
-    guard let origenTexto = leerEntrada(),
-          !origenTexto.isEmpty else {
-        print("Origen inválido.")
+    guard let origen = leerEntrada(), !origen.isEmpty else {
+        print("Origen no válido.")
         return
     }
 
-    print("Ingrese estación de destino:")
+    print("\nIngrese la estación de destino:")
 
-    guard let destinoTexto = leerEntrada(),
-          !destinoTexto.isEmpty else {
-        print("Destino inválido.")
+    guard let destino = leerEntrada(), !destino.isEmpty else {
+        print("Destino no válido.")
         return
     }
 
-    let origenNormalizado = normalizar(origenTexto)
-    let destinoNormalizado = normalizar(destinoTexto)
+    guard let estacionOrigen = buscarEstacion(origen) else {
 
-    guard let origen = estaciones.first(where: {
-        normalizar($0.nombre).contains(origenNormalizado)
-    }) else {
-
-        manejarEstacionNoEncontrada(origenTexto, tipo: "origen")
+        print("\nNo se encontró la estación de origen.")
         return
     }
 
-    guard let destino = estaciones.first(where: {
-        normalizar($0.nombre).contains(destinoNormalizado)
-    }) else {
+    guard let estacionDestino = buscarEstacion(destino) else {
 
-        manejarEstacionNoEncontrada(destinoTexto, tipo: "destino")
+        print("\nNo se encontró la estación de destino.")
         return
     }
 
-    print("\nORIGEN: \(origen.nombre)")
-    print("DESTINO: \(destino.nombre)")
+    print("\n=====================================================")
+    print("                  RESULTADO")
+    print("=====================================================")
 
-    let lineasComunes = origen.lineas.filter { destino.lineas.contains($0) }
+    print("Origen: \(estacionOrigen.nombre)")
+    print("Destino: \(estacionDestino.nombre)")
 
-    if let linea = lineasComunes.first,
-       let rango = tramoEnLinea(linea, desde: origen, hasta: destino) {
+    let lineasComunes = estacionOrigen.lineas.filter {
+        estacionDestino.lineas.contains($0)
+    }
 
-        print("\nRuta directa por \(nombreLinea(linea)):")
+    if let linea = lineasComunes.first {
 
-        for estacion in rango {
-            print("→ \(estacion.nombre)")
+        let estacionesLinea = estaciones.filter {
+            $0.lineas.contains(linea)
         }
 
-        print("\nNúmero de paradas: \(max(rango.count - 1, 0))")
-
-        simularViaje(ruta: rango, destinoFinal: destino.nombre)
-        preguntarInicioViaje()
-
-    } else if let transferencia = buscarEstacionTransferencia(origen: origen, destino: destino),
-              let lineaOrigen = origen.lineas.first(where: { transferencia.lineas.contains($0) }),
-              let lineaDestino = destino.lineas.first(where: { transferencia.lineas.contains($0) }),
-              let tramo1 = tramoEnLinea(lineaOrigen, desde: origen, hasta: transferencia),
-              let tramo2 = tramoEnLinea(lineaDestino, desde: transferencia, hasta: destino) {
-
-        let rutaCompleta = tramo1 + tramo2.dropFirst()
-
-        print("\nNo hay línea directa. Se requiere transbordo en: \(transferencia.nombre)")
-        print("\nRuta:")
-        print("Tramo 1 — \(nombreLinea(lineaOrigen)):")
-        for estacion in tramo1 {
-            print("→ \(estacion.nombre)")
-        }
-        print("🔄 Transbordo en \(transferencia.nombre) hacia \(nombreLinea(lineaDestino))")
-        print("Tramo 2 — \(nombreLinea(lineaDestino)):")
-        for estacion in tramo2 {
-            print("→ \(estacion.nombre)")
+        guard let indiceOrigen = estacionesLinea.firstIndex(where: {
+            normalizar($0.nombre) ==
+            normalizar(estacionOrigen.nombre)
+        }) else {
+            return
         }
 
-        print("\nNúmero de paradas total: \(max(rutaCompleta.count - 1, 0))")
+        guard let indiceDestino = estacionesLinea.firstIndex(where: {
+            normalizar($0.nombre) ==
+            normalizar(estacionDestino.nombre)
+        }) else {
+            return
+        }
 
-        simularViaje(ruta: Array(rutaCompleta), destinoFinal: destino.nombre)
-        preguntarInicioViaje()
+        let cantidadParadas = abs(
+            indiceDestino - indiceOrigen
+        )
+
+        print("Línea recomendada: Línea \(linea)")
+        print("Número de paradas: \(cantidadParadas)")
 
     } else {
 
-        print("\nNo existe una ruta disponible entre estas estaciones")
-        print("(no comparten línea ni se encontró una estación de transbordo).")
+        print("El viaje requiere realizar una transferencia.")
+        print("Línea de origen: \(estacionOrigen.lineas)")
+        print("Línea de destino: \(estacionDestino.lineas)")
     }
+}
+
+// =====================================================================
+// 7. AGREGAR ESTACIÓN
+// =====================================================================
+
+func agregarEstacion() {
+
+    print("\n=====================================================")
+    print("       AGREGAR ESTACIÓN A LÍNEA EXISTENTE")
+    print("=====================================================")
+
+    let lineasDisponibles = obtenerLineasDisponibles()
+
+    print("\nSeleccione la línea:")
+
+    for (indice, linea) in lineasDisponibles.enumerated() {
+        print("\(indice + 1). Línea \(linea)")
+    }
+
+    guard let opcion = leerEntrada() else {
+        print("Entrada no válida.")
+        return
+    }
+
+    guard let opcionNumero = Int(opcion),
+          opcionNumero >= 1,
+          opcionNumero <= lineasDisponibles.count else {
+
+        print("Línea inválida.")
+        return
+    }
+
+    let linea = lineasDisponibles[opcionNumero - 1]
+
+    print("\nIngrese el nombre de la estación:")
+
+    guard let nombre = leerEntrada(),
+          !nombre.isEmpty else {
+
+        print("Nombre inválido.")
+        return
+    }
+
+    print("\nIngrese el distrito:")
+
+    guard let distrito = leerEntrada(),
+          !distrito.isEmpty else {
+
+        print("Distrito inválido.")
+        return
+    }
+
+    print("\nIngrese lugares o servicios separados por coma:")
+
+    guard let entradaLugares = leerEntrada(),
+          !entradaLugares.isEmpty else {
+
+        let nuevaEstacion = Estacion(
+            nombre: nombre,
+            distrito: distrito,
+            lineas: [linea],
+            lugares: [
+                "Comercios cercanos",
+                "Servicios locales",
+                "Paraderos de transporte"
+            ]
+        )
+
+        estaciones.append(nuevaEstacion)
+
+        print("\nEstación agregada correctamente.")
+        return
+    }
+
+    let lugares = entradaLugares
+        .split(separator: ",")
+        .map {
+            $0.trimmingCharacters(
+                in: .whitespacesAndNewlines
+            )
+        }
+
+    let nuevaEstacion = Estacion(
+        nombre: nombre,
+        distrito: distrito,
+        lineas: [linea],
+        lugares: lugares
+    )
+
+    estaciones.append(nuevaEstacion)
+
+    print("\n=====================================================")
+    print("             ESTACIÓN AGREGADA")
+    print("=====================================================")
+
+    print("Nombre: \(nombre)")
+    print("Distrito: \(distrito)")
+    print("Línea: \(linea)")
+
+    print("\nLugares registrados:")
+
+    for lugar in lugares {
+        print("- \(lugar)")
+    }
+}
+
+// =====================================================================
+// FUNCIÓN PARA BUSCAR ESTACIÓN DE PARTIDA
+// =====================================================================
+
+func obtenerEstacionDePartida(
+    ubicacion: String,
+    lineaDestino: Int
+) -> Estacion? {
+
+    let ubicacionNormalizada = normalizar(ubicacion)
+
+    // -------------------------------------------------------------
+    // PRIMERO: comprobar si escribió directamente una estación
+    // -------------------------------------------------------------
+
+    if let estacion = estaciones.first(where: {
+
+        normalizar($0.nombre) == ubicacionNormalizada
+
+    }) {
+
+        // Comprobar que la estación pertenece a la línea del destino.
+        if estacion.lineas.contains(lineaDestino) {
+            return estacion
+        }
+    }
+
+    // -------------------------------------------------------------
+    // SEGUNDO: buscar por distrito
+    // -------------------------------------------------------------
+
+    let estacionesDelDistrito = estaciones.filter {
+
+        normalizar($0.distrito) == ubicacionNormalizada &&
+        $0.lineas.contains(lineaDestino)
+    }
+
+    if let primeraEstacion = estacionesDelDistrito.first {
+        return primeraEstacion
+    }
+
+    // -------------------------------------------------------------
+    // TERCERO: coincidencia parcial
+    // -------------------------------------------------------------
+
+    if let estacion = estaciones.first(where: {
+
+        normalizar($0.distrito).contains(ubicacionNormalizada) &&
+        $0.lineas.contains(lineaDestino)
+
+    }) {
+
+        return estacion
+    }
+
+    return nil
+}
+
+// =====================================================================
+// 8. PLANIFICAR VIAJE
+// =====================================================================
+
+func planificarViaje() {
+
+    print("\n=====================================================")
+    print("                PLANIFICAR VIAJE")
+    print("=====================================================")
+
+    print("\nIngrese su ubicación actual:")
+
+    guard let ubicacion = leerEntrada(),
+          !ubicacion.isEmpty else {
+
+        print("Ubicación no válida.")
+        return
+    }
+
+    print("\nIngrese la estación de destino:")
+
+    guard let destino = leerEntrada(),
+          !destino.isEmpty else {
+
+        print("Destino no válido.")
+        return
+    }
+
+    // -------------------------------------------------------------
+    // BUSCAR DESTINO
+    // -------------------------------------------------------------
+
+    guard let estacionDestino = buscarEstacion(destino) else {
+
+        print("\nNo se encontró la estación '\(destino)'.")
+        return
+    }
+
+    let lineaDestino = estacionDestino.lineas.first ?? 0
+
+    // -------------------------------------------------------------
+    // BUSCAR ORIGEN
+    // -------------------------------------------------------------
+
+    guard let estacionOrigen = obtenerEstacionDePartida(
+        ubicacion: ubicacion,
+        lineaDestino: lineaDestino
+    ) else {
+
+        print("\nNo se encontró una estación de partida")
+        print("compatible con la Línea \(lineaDestino).")
+
+        print("\nPuedes ingresar directamente")
+        print("el nombre de una estación.")
+
+        return
+    }
+
+    // -------------------------------------------------------------
+    // OBTENER ESTACIONES DE LA LÍNEA
+    // -------------------------------------------------------------
+
+    let estacionesLinea = estaciones.filter {
+
+        $0.lineas.contains(lineaDestino)
+    }
+
+    guard let indiceOrigen = estacionesLinea.firstIndex(where: {
+
+        normalizar($0.nombre) ==
+        normalizar(estacionOrigen.nombre)
+
+    }) else {
+
+        print("\nNo se pudo determinar la estación de origen.")
+        return
+    }
+
+    guard let indiceDestino = estacionesLinea.firstIndex(where: {
+
+        normalizar($0.nombre) ==
+        normalizar(estacionDestino.nombre)
+
+    }) else {
+
+        print("\nNo se pudo determinar la estación de destino.")
+        return
+    }
+
+    // -------------------------------------------------------------
+    // CALCULAR PARADAS
+    // -------------------------------------------------------------
+
+    let cantidadParadas = abs(
+        indiceDestino - indiceOrigen
+    )
+
+    // -------------------------------------------------------------
+    // MOSTRAR PLAN
+    // -------------------------------------------------------------
+
+    print("\n=====================================================")
+    print("                  PLAN DE VIAJE")
+    print("=====================================================")
+
+    print("Ubicación actual: \(ubicacion)")
+    print("Estación de partida: \(estacionOrigen.nombre)")
+    print("Destino: \(estacionDestino.nombre)")
+    print("Distrito destino: \(estacionDestino.distrito)")
+
+    print("\n-----------------------------------------------------")
+    print("INDICACIONES")
+    print("-----------------------------------------------------")
+
+    if normalizar(ubicacion) ==
+        normalizar(estacionOrigen.nombre) {
+
+        print("Ya te encuentras en la estación")
+        print("\(estacionOrigen.nombre).")
+
+    } else {
+
+        print("Dirígete hacia la estación:")
+        print("\(estacionOrigen.nombre)")
+    }
+
+    print("\nToma la Línea \(lineaDestino).")
+    print("Continúa hasta \(estacionDestino.nombre).")
+
+    // -------------------------------------------------------------
+    // RECORRIDO
+    // -------------------------------------------------------------
+
+    print("\n-----------------------------------------------------")
+    print("                    RECORRIDO")
+    print("-----------------------------------------------------")
+
+    if indiceOrigen < indiceDestino {
+
+        for indice in indiceOrigen...indiceDestino {
+
+            if indice == indiceOrigen {
+
+                print(
+                    "Inicio → \(estacionesLinea[indice].nombre)"
+                )
+
+            } else {
+
+                let parada = indice - indiceOrigen
+
+                print(
+                    "\(parada). \(estacionesLinea[indice].nombre)"
+                )
+            }
+        }
+
+    } else if indiceOrigen > indiceDestino {
+
+        for indice in stride(
+            from: indiceOrigen,
+            through: indiceDestino,
+            by: -1
+        ) {
+
+            if indice == indiceOrigen {
+
+                print(
+                    "Inicio → \(estacionesLinea[indice].nombre)"
+                )
+
+            } else {
+
+                let parada = indiceOrigen - indice
+
+                print(
+                    "\(parada). \(estacionesLinea[indice].nombre)"
+                )
+            }
+        }
+
+    } else {
+
+        print("Ya te encuentras en la estación de destino.")
+    }
+
+    // -------------------------------------------------------------
+    // RESUMEN
+    // -------------------------------------------------------------
+
+    print("\n-----------------------------------------------------")
+    print("              RESUMEN DEL VIAJE")
+    print("-----------------------------------------------------")
+
+    print("Estación de partida: \(estacionOrigen.nombre)")
+    print("Estación de destino: \(estacionDestino.nombre)")
+    print("Línea: \(lineaDestino)")
+    print("Número de paradas: \(cantidadParadas)")
+
+    // -------------------------------------------------------------
+    // QUÉ ENCONTRARÁS
+    // -------------------------------------------------------------
+
+    print("\n-----------------------------------------------------")
+    print("        ¿QUÉ ENCONTRARÁS AL LLEGAR?")
+    print("-----------------------------------------------------")
+
+    print(
+        "En \(estacionDestino.nombre) puedes encontrar:"
+    )
+
+    for lugar in estacionDestino.lugares {
+
+        print("- \(lugar)")
+    }
+
+    // -------------------------------------------------------------
+    // COBRO
+    // -------------------------------------------------------------
+
+    let tarifa = 1.50
+
+    print("\n-----------------------------------------------------")
+    print("              COBRO DE TARJETA")
+    print("-----------------------------------------------------")
+
+    print(
+        String(
+            format: "Tarifa del viaje: S/ %.2f",
+            tarifa
+        )
+    )
+
+    print(
+        String(
+            format:
+                "Se descontará S/ %.2f del saldo de la tarjeta.",
+            tarifa
+        )
+    )
+
+    print("\n=====================================================")
+    print("          VIAJE PLANIFICADO CORRECTAMENTE")
+    print("=====================================================")
 }
 
 // =====================================================================
 // MENÚ PRINCIPAL
 // =====================================================================
 
-var continuar = true
+func mostrarMenu() {
 
-while continuar {
+    var continuar = true
 
-    print("\n=====================================================")
-    print("                 METRO LIMA APP")
-    print("=====================================================")
+    while continuar {
 
-    print("""
-    1. Listar estaciones
-    2. Buscar estación por nombre
-    3. Buscar estaciones por distrito/lugar
-    4. ¿Qué línea debo tomar según mi ubicación?
-    5. Ver estaciones de transferencia
-    6. Calcular ruta entre estaciones
-    7. Gestionar tarjeta de transporte
-    8. Salir
-    """)
+        print("\n")
+        print("=====================================================")
+        print("                 METRO LIMA APP")
+        print("=====================================================")
 
-    print("Seleccione una opción:")
+        print("1. Listar estaciones")
+        print("2. Buscar estación")
+        print("3. Buscar líneas por distrito o lugar")
+        print("4. Línea según ubicación")
+        print("5. Estaciones de transferencia")
+        print("6. Calcular ruta")
+        print("7. Agregar estación a línea existente")
+        print("8. Planificar viaje")
+        print("0. Salir")
 
-    guard let opcion = leerEntrada() else {
-        print("Opción inválida.")
-        continue
-    }
+        print("\nSeleccione una opción:")
 
-    switch opcion {
+        guard let opcion = leerEntrada() else {
 
-    case "1":
-        listarEstaciones()
+            print("Entrada no válida.")
+            continue
+        }
 
-    case "2":
-        buscarPorNombre()
+        switch opcion {
 
-    case "3":
-        buscarPorDistrito()
+        case "1":
+            listarEstaciones()
 
-    case "4":
-        queLineaTomar()
+        case "2":
+            buscarPorNombre()
 
-    case "5":
-        estacionesTransferencia()
+        case "3":
+            buscarPorDistrito()
 
-    case "6":
-        calcularRuta()
+        case "4":
+            lineaSegunUbicacion()
 
-    case "7":
-        menuTarjeta()
+        case "5":
+            estacionesTransferencia()
 
-    case "8":
-        continuar = false
-        print("\nGracias por usar Metro Lima App.")
+        case "6":
+            calcularRuta()
 
-    default:
-        print("\nOpción inválida. Seleccione del 1 al 8.")
+        case "7":
+            agregarEstacion()
+
+        case "8":
+            planificarViaje()
+
+        case "0":
+
+            continuar = false
+
+            print("\nGracias por utilizar Metro Lima App.")
+
+        default:
+
+            print("\nOpción inválida.")
+        }
     }
 }
+
+// =====================================================================
+// INICIO DEL PROGRAMA
+// =====================================================================
+
+mostrarMenu()
