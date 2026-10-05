@@ -7,24 +7,24 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		8261B4E7307338190004C7AA /* apple_lab05_UIKit_intro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = apple_lab05_UIKit_intro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8261B550307349C60004C7AA /* apple_lab05_UIKit_intro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = apple_lab05_UIKit_intro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8261B4F93073381A0004C7AA /* Exceptions for "apple_lab05_UIKit_intro" folder in "apple_lab05_UIKit_intro" target */ = {
+		8261B562307349C70004C7AA /* Exceptions for "apple_lab05_UIKit_intro" folder in "apple_lab05_UIKit_intro" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 8261B4E6307338190004C7AA /* apple_lab05_UIKit_intro */;
+			target = 8261B54F307349C60004C7AA /* apple_lab05_UIKit_intro */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		8261B4E9307338190004C7AA /* apple_lab05_UIKit_intro */ = {
+		8261B552307349C60004C7AA /* apple_lab05_UIKit_intro */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				8261B4F93073381A0004C7AA /* Exceptions for "apple_lab05_UIKit_intro" folder in "apple_lab05_UIKit_intro" target */,
+				8261B562307349C70004C7AA /* Exceptions for "apple_lab05_UIKit_intro" folder in "apple_lab05_UIKit_intro" target */,
 			);
 			path = apple_lab05_UIKit_intro;
 			sourceTree = "<group>";
@@ -32,7 +32,7 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8261B4E4307338190004C7AA /* Frameworks */ = {
+		8261B54D307349C60004C7AA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,18 +42,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8261B4DE307338190004C7AA = {
+		8261B547307349C60004C7AA = {
 			isa = PBXGroup;
 			children = (
-				8261B4E9307338190004C7AA /* apple_lab05_UIKit_intro */,
-				8261B4E8307338190004C7AA /* Products */,
+				8261B552307349C60004C7AA /* apple_lab05_UIKit_intro */,
+				8261B551307349C60004C7AA /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		8261B4E8307338190004C7AA /* Products */ = {
+		8261B551307349C60004C7AA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8261B4E7307338190004C7AA /* apple_lab05_UIKit_intro.app */,
+				8261B550307349C60004C7AA /* apple_lab05_UIKit_intro.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,64 +61,64 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8261B4E6307338190004C7AA /* apple_lab05_UIKit_intro */ = {
+		8261B54F307349C60004C7AA /* apple_lab05_UIKit_intro */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8261B4FA3073381A0004C7AA /* Build configuration list for PBXNativeTarget "apple_lab05_UIKit_intro" */;
+			buildConfigurationList = 8261B563307349C70004C7AA /* Build configuration list for PBXNativeTarget "apple_lab05_UIKit_intro" */;
 			buildPhases = (
-				8261B4E3307338190004C7AA /* Sources */,
-				8261B4E4307338190004C7AA /* Frameworks */,
-				8261B4E5307338190004C7AA /* Resources */,
+				8261B54C307349C60004C7AA /* Sources */,
+				8261B54D307349C60004C7AA /* Frameworks */,
+				8261B54E307349C60004C7AA /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				8261B4E9307338190004C7AA /* apple_lab05_UIKit_intro */,
+				8261B552307349C60004C7AA /* apple_lab05_UIKit_intro */,
 			);
 			name = apple_lab05_UIKit_intro;
 			packageProductDependencies = (
 			);
 			productName = apple_lab05_UIKit_intro;
-			productReference = 8261B4E7307338190004C7AA /* apple_lab05_UIKit_intro.app */;
+			productReference = 8261B550307349C60004C7AA /* apple_lab05_UIKit_intro.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		8261B4DF307338190004C7AA /* Project object */ = {
+		8261B548307349C60004C7AA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2660;
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
-					8261B4E6307338190004C7AA = {
+					8261B54F307349C60004C7AA = {
 						CreatedOnToolsVersion = 26.6;
 					};
 				};
 			};
-			buildConfigurationList = 8261B4E2307338190004C7AA /* Build configuration list for PBXProject "apple_lab05_UIKit_intro" */;
+			buildConfigurationList = 8261B54B307349C60004C7AA /* Build configuration list for PBXProject "apple_lab05_UIKit_intro" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 8261B4DE307338190004C7AA;
+			mainGroup = 8261B547307349C60004C7AA;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 8261B4E8307338190004C7AA /* Products */;
+			productRefGroup = 8261B551307349C60004C7AA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8261B4E6307338190004C7AA /* apple_lab05_UIKit_intro */,
+				8261B54F307349C60004C7AA /* apple_lab05_UIKit_intro */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8261B4E5307338190004C7AA /* Resources */ = {
+		8261B54E307349C60004C7AA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -128,7 +128,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8261B4E3307338190004C7AA /* Sources */ = {
+		8261B54C307349C60004C7AA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -138,7 +138,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		8261B4FB3073381A0004C7AA /* Debug */ = {
+		8261B564307349C70004C7AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -169,7 +169,7 @@
 			};
 			name = Debug;
 		};
-		8261B4FC3073381A0004C7AA /* Release */ = {
+		8261B565307349C70004C7AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -200,7 +200,7 @@
 			};
 			name = Release;
 		};
-		8261B4FD3073381A0004C7AA /* Debug */ = {
+		8261B566307349C70004C7AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -263,7 +263,7 @@
 			};
 			name = Debug;
 		};
-		8261B4FE3073381A0004C7AA /* Release */ = {
+		8261B567307349C70004C7AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -322,25 +322,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8261B4E2307338190004C7AA /* Build configuration list for PBXProject "apple_lab05_UIKit_intro" */ = {
+		8261B54B307349C60004C7AA /* Build configuration list for PBXProject "apple_lab05_UIKit_intro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8261B4FD3073381A0004C7AA /* Debug */,
-				8261B4FE3073381A0004C7AA /* Release */,
+				8261B566307349C70004C7AA /* Debug */,
+				8261B567307349C70004C7AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8261B4FA3073381A0004C7AA /* Build configuration list for PBXNativeTarget "apple_lab05_UIKit_intro" */ = {
+		8261B563307349C70004C7AA /* Build configuration list for PBXNativeTarget "apple_lab05_UIKit_intro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8261B4FB3073381A0004C7AA /* Debug */,
-				8261B4FC3073381A0004C7AA /* Release */,
+				8261B564307349C70004C7AA /* Debug */,
+				8261B565307349C70004C7AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 8261B4DF307338190004C7AA /* Project object */;
+	rootObject = 8261B548307349C60004C7AA /* Project object */;
 }
