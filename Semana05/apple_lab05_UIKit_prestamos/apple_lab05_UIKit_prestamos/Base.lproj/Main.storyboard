@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="apple_lab05_UIKit_prestamos" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calculadora de Préstamos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3a-lP-sWw">
+                                <rect key="frame" x="16" y="120" width="361" height="50"/>
+                                <color key="backgroundColor" red="0.65302157360000002" green="0.60830810010000003" blue="0.92916015630000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" red="0.653021573584743" green="0.60830810007958114" blue="0.92916015625000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="lJx-yn-UMH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="23"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Capital (S/)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAW-oG-ZiI">
+                                <rect key="frame" x="25" y="200" width="102" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tasa anual (%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xzn-fR-Qva">
+                                <rect key="frame" x="25" y="257" width="134" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plazo (años)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3WF-62-8z8">
+                                <rect key="frame" x="25" y="320" width="113" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wwy-4v-5k0">
+                                <rect key="frame" x="220" y="192" width="97" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ifc-C9-ECk">
+                                <rect key="frame" x="220" y="249" width="97" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uFF-8a-dhg">
+                                <rect key="frame" x="220" y="312" width="97" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BjM-j0-GGJ">
+                                <rect key="frame" x="77" y="414" width="222" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="wdi-oQ-Y0e"/>
+                                </constraints>
+                                <color key="tintColor" red="0.60010271787643432" green="0.097860841750284422" blue="0.10902704945400453" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="dollarsign.arrow.trianglehead.counterclockwise.rotate.90" catalog="system" title="Calcular préstamo">
+                                    <fontDescription key="titleFontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="21"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="CalcularResultado:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vnl-6s-hyP"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resultado" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3C-SG-swJ">
+                                <rect key="frame" x="16" y="495" width="361" height="120"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ifc-C9-ECk" firstAttribute="leading" secondItem="uFF-8a-dhg" secondAttribute="leading" id="1yf-57-0HL"/>
+                            <constraint firstItem="Ifc-C9-ECk" firstAttribute="top" secondItem="wwy-4v-5k0" secondAttribute="bottom" constant="23" id="46H-ha-nOl"/>
+                            <constraint firstItem="Xzn-fR-Qva" firstAttribute="leading" secondItem="3WF-62-8z8" secondAttribute="leading" id="8aC-ie-7Yi"/>
+                            <constraint firstItem="OAW-oG-ZiI" firstAttribute="bottom" secondItem="wwy-4v-5k0" secondAttribute="bottom" id="9r8-Xq-3gg"/>
+                            <constraint firstItem="OAW-oG-ZiI" firstAttribute="leading" secondItem="Xzn-fR-Qva" secondAttribute="leading" id="AHw-S8-aPz"/>
+                            <constraint firstItem="wwy-4v-5k0" firstAttribute="leading" secondItem="Ifc-C9-ECk" secondAttribute="leading" id="DQb-K3-FVJ"/>
+                            <constraint firstItem="L3a-lP-sWw" firstAttribute="leading" secondItem="e3C-SG-swJ" secondAttribute="leading" id="F51-IS-DIV"/>
+                            <constraint firstItem="uFF-8a-dhg" firstAttribute="top" secondItem="Ifc-C9-ECk" secondAttribute="bottom" constant="29" id="FVR-vM-at2"/>
+                            <constraint firstItem="BjM-j0-GGJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="77" id="NE5-jj-p8H"/>
+                            <constraint firstItem="L3a-lP-sWw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="QQ0-f1-5Bf"/>
+                            <constraint firstItem="OAW-oG-ZiI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="SeM-pW-MVd"/>
+                            <constraint firstItem="OAW-oG-ZiI" firstAttribute="top" secondItem="L3a-lP-sWw" secondAttribute="bottom" constant="30" id="Svy-SH-4RB"/>
+                            <constraint firstItem="Ifc-C9-ECk" firstAttribute="leading" secondItem="Xzn-fR-Qva" secondAttribute="trailing" constant="61" id="Wg3-Jv-yUo"/>
+                            <constraint firstItem="Xzn-fR-Qva" firstAttribute="top" secondItem="OAW-oG-ZiI" secondAttribute="bottom" constant="31" id="YGm-qY-w3j"/>
+                            <constraint firstItem="BjM-j0-GGJ" firstAttribute="top" secondItem="3WF-62-8z8" secondAttribute="bottom" constant="68" id="Zw6-iB-wEM"/>
+                            <constraint firstItem="3WF-62-8z8" firstAttribute="bottom" secondItem="uFF-8a-dhg" secondAttribute="bottom" id="ddP-Jz-jbR"/>
+                            <constraint firstItem="L3a-lP-sWw" firstAttribute="trailing" secondItem="e3C-SG-swJ" secondAttribute="trailing" id="fIJ-Xu-iis"/>
+                            <constraint firstItem="3WF-62-8z8" firstAttribute="top" secondItem="Xzn-fR-Qva" secondAttribute="bottom" constant="37" id="fcf-rV-McW"/>
+                            <constraint firstItem="Xzn-fR-Qva" firstAttribute="bottom" secondItem="Ifc-C9-ECk" secondAttribute="bottom" id="g2f-Lt-uxs"/>
+                            <constraint firstItem="L3a-lP-sWw" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="gA2-nM-h0U"/>
+                            <constraint firstItem="e3C-SG-swJ" firstAttribute="top" secondItem="BjM-j0-GGJ" secondAttribute="bottom" constant="42" id="kPi-mI-P18"/>
+                            <constraint firstItem="wwy-4v-5k0" firstAttribute="top" secondItem="L3a-lP-sWw" secondAttribute="bottom" constant="22" id="q46-09-Oig"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="e3C-SG-swJ" secondAttribute="bottom" constant="169" id="sB3-Nq-mQw"/>
+                            <constraint firstItem="Ifc-C9-ECk" firstAttribute="trailing" secondItem="uFF-8a-dhg" secondAttribute="trailing" id="sm7-hg-HeV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wwy-4v-5k0" secondAttribute="trailing" constant="76" id="tYZ-hQ-Z3g"/>
+                            <constraint firstItem="wwy-4v-5k0" firstAttribute="trailing" secondItem="Ifc-C9-ECk" secondAttribute="trailing" id="tcj-PP-3uc"/>
+                            <constraint firstItem="L3a-lP-sWw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="2" id="uNz-7I-kZE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="calculateButton" destination="BjM-j0-GGJ" id="fYr-Ta-1qn"/>
+                        <outlet property="capitalTextField" destination="wwy-4v-5k0" id="oqx-Cs-V0E"/>
+                        <outlet property="rateTextField" destination="Ifc-C9-ECk" id="PoN-zE-tla"/>
+                        <outlet property="resultLabel" destination="e3C-SG-swJ" id="e4U-6i-xXr"/>
+                        <outlet property="titleLabel" destination="L3a-lP-sWw" id="UJE-3i-YId"/>
+                        <outlet property="yearsTextField" destination="uFF-8a-dhg" id="kvH-sJ-bjy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="135.1145038167939" y="100.70422535211269"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="dollarsign.arrow.trianglehead.counterclockwise.rotate.90" catalog="system" width="128" height="119"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
