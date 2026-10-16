@@ -19,7 +19,8 @@ xcuserdata/
 .swiftpm/
 
 # CocoaPods
-Pods/.DS_Store
+Pods/
+.DS_Store
 xcuserdata/
 DerivedData/
 *.xcuserstate
