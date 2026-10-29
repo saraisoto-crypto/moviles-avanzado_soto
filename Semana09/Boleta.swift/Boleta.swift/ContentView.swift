@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct ContentView: View {
     // Datos del formulario
@@ -21,83 +22,117 @@ struct ContentView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 16) {
                 Text("Boleta de ejemplo")
-                    .font(.title)
+                    .font(.largeTitle)
                     .bold()
+                    .foregroundColor(.blue)
 
-                Text("Sueldo básico (S/)")
-                TextField("Ej: 2500.00", text: $sueldoTexto)
-                    .keyboardType(.decimalPad)
-                    .textFieldStyle(.roundedBorder)
+                // ---------- Formulario ----------
+                VStack(alignment: .leading, spacing: 12) {
+                    campo("Sueldo básico (S/)", "Ej: 2500.00", $sueldoTexto, .decimalPad)
 
-                Text("Días laborados (1 a 30)")
-                TextField("Ej: 30", text: $diasTexto)
-                    .keyboardType(.numberPad)
-                    .textFieldStyle(.roundedBorder)
+                    HStack(alignment: .top, spacing: 12) {
+                        campo("Días laborados (1-30)", "Ej: 30", $diasTexto, .numberPad)
 
-                Text("¿Tiene hijos?")
-                Picker("¿Tiene hijos?", selection: $hijosIndex) {
-                    Text("No").tag(0)
-                    Text("Sí").tag(1)
-                }
-                .pickerStyle(.segmented)
-
-                Text("Sistema de pensiones")
-                Picker("Sistema de pensiones", selection: $sistema) {
-                    ForEach(SistemaPension.allCases, id: \.self) { s in
-                        Text(s.rawValue).tag(s)
-                    }
-                }
-                .pickerStyle(.segmented)
-
-                if sistema == .afp {
-                    Text("AFP")
-                    Picker("AFP", selection: $nombreAFP) {
-                        ForEach(listaAFP, id: \.self) { nombre in
-                            Text(nombre).tag(nombre)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("¿Tiene hijos?")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                            Picker("¿Tiene hijos?", selection: $hijosIndex) {
+                                Text("No").tag(0)
+                                Text("Sí").tag(1)
+                            }
+                            .pickerStyle(.segmented)
                         }
                     }
-                    .pickerStyle(.menu)
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Sistema de pensiones")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Picker("Sistema de pensiones", selection: $sistema) {
+                            ForEach(SistemaPension.allCases, id: \.self) { s in
+                                Text(s.rawValue).tag(s)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                    }
+
+                    if sistema == .afp {
+                        HStack {
+                            Text("AFP")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                            Picker("AFP", selection: $nombreAFP) {
+                                ForEach(listaAFP, id: \.self) { nombre in
+                                    Text(nombre).tag(nombre)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            Spacer()
+                        }
+                    }
+
+                    HStack(alignment: .top, spacing: 12) {
+                        campo("Horas extras 25%", "0", $horas25Texto, .decimalPad)
+                        campo("Horas extras 35%", "0", $horas35Texto, .decimalPad)
+                    }
+
+                    campo("Adelantos (S/)", "0.00", $adelantosTexto, .decimalPad)
+
+                    Button("Calcular") {
+                        ocultarTeclado()
+                        calcular()
+                    }
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+
+                    if !mensajeError.isEmpty {
+                        Text(mensajeError)
+                            .foregroundColor(.red)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color.red.opacity(0.1))
+                            .cornerRadius(10)
+                    }
                 }
-
-                Text("Horas extras al 25%")
-                TextField("0", text: $horas25Texto)
-                    .keyboardType(.decimalPad)
-                    .textFieldStyle(.roundedBorder)
-
-                Text("Horas extras al 35%")
-                TextField("0", text: $horas35Texto)
-                    .keyboardType(.decimalPad)
-                    .textFieldStyle(.roundedBorder)
-
-                Text("Adelantos (S/)")
-                TextField("0.00", text: $adelantosTexto)
-                    .keyboardType(.decimalPad)
-                    .textFieldStyle(.roundedBorder)
-
-                Button("Calcular") {
-                    calcular()
-                }
-                .frame(maxWidth: .infinity)
                 .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
+                .background(Color.gray.opacity(0.08))
+                .cornerRadius(14)
 
-                if !mensajeError.isEmpty {
-                    Text(mensajeError)
-                        .foregroundColor(.red)
-                }
-
-                // Resultado temporal (en el Commit 3 lo cambiamos por la boleta completa)
+                // ---------- Boleta ----------
                 if let b = boleta {
-                    Text("Neto a pagar: S/ \(b.neto.soles())")
-                        .font(.headline)
+                    VistaBoleta(boleta: b)
                 }
             }
             .padding()
         }
+        .scrollDismissesKeyboard(.interactively)
+    }
+
+    // MARK: - Campo de texto reutilizable
+
+    func campo(_ titulo: String, _ placeholder: String,
+               _ texto: Binding<String>, _ teclado: UIKeyboardType) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(titulo)
+                .font(.subheadline)
+                .foregroundColor(.gray)
+            TextField(placeholder, text: texto)
+                .keyboardType(teclado)
+                .textFieldStyle(.roundedBorder)
+        }
+    }
+
+    func ocultarTeclado() {
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder),
+            to: nil, from: nil, for: nil)
     }
 
     // MARK: - Lectura y validación
@@ -158,6 +193,88 @@ struct ContentView: View {
             adelantos: adelantos
         )
         boleta = Boleta(datos: datos)
+    }
+}
+
+// MARK: - Boleta (3 bloques, uno debajo del otro)
+
+struct VistaBoleta: View {
+    let boleta: Boleta
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text("BOLETA DE PAGO (Boleta de ejemplo)")
+                .font(.headline)
+
+            bloque(titulo: "REMUNERACIONES",
+                   color: .blue,
+                   conceptos: boleta.remuneraciones,
+                   nombreTotal: "Total remuneraciones",
+                   total: boleta.totalRemuneraciones)
+
+            bloque(titulo: "RETENCIONES / DESCUENTOS",
+                   color: .orange,
+                   conceptos: boleta.descuentos,
+                   nombreTotal: "Total descuentos",
+                   total: boleta.totalDescuentos)
+
+            // Aportaciones del empleador (no se descuenta al trabajador)
+            VStack(alignment: .leading, spacing: 8) {
+                Text("APORTACIONES DEL EMPLEADOR")
+                    .font(.caption)
+                    .bold()
+                    .foregroundColor(.gray)
+                fila(nombre: "EsSalud (9%)", monto: boleta.essalud)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.gray.opacity(0.12))
+            .cornerRadius(14)
+
+            VStack(spacing: 4) {
+                Text("NETO A PAGAR")
+                    .font(.subheadline)
+                    .bold()
+                Text("S/ \(boleta.neto.soles())")
+                    .font(.largeTitle)
+                    .bold()
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color.green.opacity(0.25))
+            .cornerRadius(14)
+        }
+    }
+
+    func bloque(titulo: String, color: Color, conceptos: [Concepto],
+                nombreTotal: String, total: Decimal) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(titulo)
+                .font(.caption)
+                .bold()
+                .foregroundColor(color)
+            ForEach(conceptos) { c in
+                fila(nombre: c.nombre, monto: c.monto)
+            }
+            Divider()
+            HStack {
+                Text(nombreTotal).bold()
+                Spacer()
+                Text(total.soles()).bold()
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(color.opacity(0.10))
+        .cornerRadius(14)
+    }
+
+    func fila(nombre: String, monto: Decimal) -> some View {
+        HStack {
+            Text(nombre)
+            Spacer()
+            Text(monto.soles())
+        }
     }
 }
 
