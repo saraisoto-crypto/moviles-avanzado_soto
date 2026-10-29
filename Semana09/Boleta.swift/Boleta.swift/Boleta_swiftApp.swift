@@ -9,6 +9,13 @@ import SwiftUI
 
 @main
 struct Boleta_swiftApp: App {
+
+    init() {
+        #if DEBUG
+        CasosPrueba.verificar()
+        #endif
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
