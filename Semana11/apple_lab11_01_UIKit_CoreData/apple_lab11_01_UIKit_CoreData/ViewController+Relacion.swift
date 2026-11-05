@@ -41,35 +41,4 @@ extension ViewController {
         request.predicate = NSPredicate(format: "grupo.nombre == %@", nombreGrupo)
         return (try? conexion().fetch(request)) ?? []
     }
-
-    // Carga los contactos de ejemplo del lab. Ejecútala UNA sola vez y luego coméntala.
-    func cargarDatosDePrueba() {
-        let datos = [
-            ("Juan León", "986464533", "Las Begonias"),
-            ("Jaime Gómez", "984747474", "Los Frutales"),
-            ("Jaime Farfan", "989898987", "las Manzanas"),
-            ("Silvia Montoya", "989797979", "Las Declicias"),
-            ("Luis Diaz", "987635342", "Los Arandanos"),
-            ("Maria Vizcarra", "987463539", "Los Claves"),
-            ("Jose Morales", "987654234", "Las Vias"),
-            ("Jessica Diaz", "989767689", "Loas Nogales"),
-            ("Jose Quiñones", "987654321", "Las Frutas"),
-            ("Patricia Zuta", "978767987", "Los Mangos"),
-            ("Jose Perez", "987594873", "Las Manzanas")
-        ]
-        let contexto = conexion()
-        for (nombre, telefono, direccion) in datos {
-            let c = NSEntityDescription.insertNewObject(forEntityName: "Contacto", into: contexto) as! Contacto
-            c.nombre = nombre
-            c.telefono = telefono
-            c.direccion = direccion
-        }
-        do {
-            try contexto.save()
-            cargarInfoCoreData()
-            TablaContacto.reloadData()
-        } catch {
-            print("Error al cargar datos de prueba: \(error)")
-        }
-    }
 }
