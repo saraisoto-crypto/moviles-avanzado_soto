@@ -92,6 +92,9 @@ class ResumenViewController: UIViewController {
         let totalAyer = deAyer.reduce(0) { $0 + $1.total }
 
         let tarjetaHoy = crearTarjeta(texto: String(format: "Hoy\nS/ %.2f (%d ventas)", totalHoy, deHoy.count))
+        // La tarjeta de hoy se resalta en verde; la de ayer queda neutra
+        tarjetaHoy.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.15)
+        tarjetaHoy.textColor = .systemGreen
         let tarjetaAyer = crearTarjeta(texto: String(format: "Ayer\nS/ %.2f (%d ventas)", totalAyer, deAyer.count))
         let pilaTarjetas = UIStackView(arrangedSubviews: [tarjetaHoy, tarjetaAyer])
         pilaTarjetas.axis = .horizontal

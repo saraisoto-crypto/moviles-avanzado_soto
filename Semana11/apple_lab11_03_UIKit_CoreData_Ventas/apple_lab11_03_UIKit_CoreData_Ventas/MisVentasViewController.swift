@@ -77,10 +77,14 @@ class MisVentasViewController: UIViewController,
             etiqueta.numberOfLines = 2
             etiqueta.textAlignment = .center
             etiqueta.font = .systemFont(ofSize: 15, weight: .semibold)
-            etiqueta.backgroundColor = .secondarySystemBackground
             etiqueta.layer.cornerRadius = 10
             etiqueta.clipsToBounds = true
         }
+        // Tarjetas con color: verde para hoy, azul para el mes
+        etiquetaHoy.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.15)
+        etiquetaHoy.textColor = .systemGreen
+        etiquetaMes.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.15)
+        etiquetaMes.textColor = .systemBlue
 
         let pilaIndicadores = UIStackView(arrangedSubviews: [etiquetaHoy, etiquetaMes])
         pilaIndicadores.axis = .horizontal
@@ -196,6 +200,10 @@ class MisVentasViewController: UIViewController,
         let titulo = String(format: "%@ x%d — S/ %.2f",
                             venta.producto?.nombre ?? "(producto)", venta.cantidad, venta.total)
         let fecha = venta.fecha.map { formateadorFecha.string(from: $0) } ?? "—"
+
+        // Ícono según el estado de la venta
+        celda.imageView?.image = UIImage(systemName: venta.anulada ? "xmark.circle.fill" : "cart.circle.fill")
+        celda.imageView?.tintColor = venta.anulada ? .systemRed : .systemGreen
 
         if venta.anulada {
             // Venta anulada: texto TACHADO + etiqueta "ANULADA" en el detalle

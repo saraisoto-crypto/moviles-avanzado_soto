@@ -108,6 +108,11 @@ class RegistrarVentaViewController: UIViewController,
         configurarPickers()
         configurarInterfaz()
 
+        // Estilo visual de los campos: fondo redondeado + ícono
+        campoProducto.aplicarEstiloTarjeta(icono: "shippingbox")
+        campoCliente.aplicarEstiloTarjeta(icono: "person")
+        campoCantidad.aplicarEstiloTarjeta(icono: "number")
+
         campoCantidad.addTarget(self, action: #selector(recalcular), for: .editingChanged)
         botonRegistrar.addTarget(self, action: #selector(registrarVenta), for: .touchUpInside)
     }
@@ -176,10 +181,17 @@ class RegistrarVentaViewController: UIViewController,
     // MARK: - Auto Layout por código
 
     private func configurarInterfaz() {
+        // El resumen de montos va dentro de una "tarjeta" con fondo y margen
+        let tarjetaResumen = UIStackView(arrangedSubviews: [etiquetaResumen])
+        tarjetaResumen.isLayoutMarginsRelativeArrangement = true
+        tarjetaResumen.layoutMargins = UIEdgeInsets(top: 14, left: 16, bottom: 14, right: 16)
+        tarjetaResumen.backgroundColor = .secondarySystemBackground
+        tarjetaResumen.layer.cornerRadius = 12
+
         let pila = UIStackView(arrangedSubviews: [
             etiquetaVendedor, campoProducto, etiquetaInfoProducto,
             campoCliente, etiquetaCategoria, campoCantidad,
-            etiquetaResumen, botonRegistrar
+            tarjetaResumen, botonRegistrar
         ])
         pila.axis = .vertical
         pila.spacing = 14

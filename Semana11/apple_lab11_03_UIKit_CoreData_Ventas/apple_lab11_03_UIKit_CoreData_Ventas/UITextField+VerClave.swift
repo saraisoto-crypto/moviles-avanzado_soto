@@ -27,8 +27,13 @@ extension UITextField {
             boton.setImage(UIImage(systemName: icono), for: .normal)
         }, for: .touchUpInside)
 
+        // Contenedor con margen para que el ojo no quede pegado al borde
+        boton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        let contenedor = UIView(frame: CGRect(x: 0, y: 0, width: 42, height: 30))
+        contenedor.addSubview(boton)
+
         // El botón se muestra siempre en el lado derecho del campo
-        rightView = boton
+        rightView = contenedor
         rightViewMode = .always
     }
 }

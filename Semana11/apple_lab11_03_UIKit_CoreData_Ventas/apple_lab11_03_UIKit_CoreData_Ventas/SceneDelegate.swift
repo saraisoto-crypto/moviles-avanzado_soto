@@ -13,10 +13,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        // Obtenemos la escena de ventana que nos entrega el sistema
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+
+        // Creamos la ventana POR CÓDIGO (sin storyboard):
+        // 1. La ventana se asocia a la escena
+        // 2. El controlador raíz es un UINavigationController que envuelve al Login,
+        //    así podemos navegar entre pantallas con push/pop
+        let window = UIWindow(windowScene: windowScene)
+        // Tint global: todos los botones, tabs e íconos heredan el color de marca
+        window.tintColor = Estilos.colorPrimario
+        window.rootViewController = UINavigationController(rootViewController: LoginViewController())
+        self.window = window
+        window.makeKeyAndVisible() // mostramos la ventana en pantalla
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

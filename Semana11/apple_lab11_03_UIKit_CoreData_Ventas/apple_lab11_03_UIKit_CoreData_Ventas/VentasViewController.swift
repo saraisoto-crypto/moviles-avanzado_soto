@@ -174,6 +174,10 @@ class VentasViewController: UIViewController, UITableViewDataSource, UITableView
         // El subtítulo siempre muestra el NOMBRE DEL VENDEDOR
         let subtitulo = "\(fecha) | Vendedor: \(venta.vendedor?.nombre ?? "—") | Cliente: \(venta.cliente?.nombre ?? "—")"
 
+        // Ícono según el estado de la venta
+        celda.imageView?.image = UIImage(systemName: venta.anulada ? "xmark.circle.fill" : "cart.circle.fill")
+        celda.imageView?.tintColor = venta.anulada ? .systemRed : .systemGreen
+
         if venta.anulada {
             // Anulada: título tachado y etiqueta en rojo
             celda.textLabel?.attributedText = NSAttributedString(
